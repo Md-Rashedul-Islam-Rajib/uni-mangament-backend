@@ -1,37 +1,15 @@
-import { model, Schema } from 'mongoose';
-import { TUser } from './user.types';
+import { z } from "zod";
 
-const userSchema = new Schema<TUser>(
-    {
-        id: {
-            type: String,
-            required: true,
-        },
-        password: {
-            type: String,
-            required: true,
-        },
-        needsPasswordChange: {
-            type: Boolean,
-            default: true,
-        },
-        role: {
-            type: String,
-            enum: ['student', 'faculty', 'admin'],
-        },
-        status: {
-            type: String,
-            enum: ['in-progress', 'blocked'],
-            default: 'in-progress',
-        },
-        isDeleted: {
-            type: Boolean,
-            default: false,
-        },
-    },
-    {
-        timestamps: true,
-    },
-);
 
-export const User = model<TUser>('User', userSchema);
+const userZodSchema= z.object({
+    id: z.string(),
+    password: z
+        .string()
+        .max(20, { message: "password can be more than 20 characters" }),
+    needsPasswordChange: z.boolean().optional().default(true),
+    role: z.enum(["student", "faculty", "admin"]),
+    status: z.enum(["in-progress", "blocked"]).default("in-progress"),
+    isDeleted : z.boolean().optional().default(false)
+});
+
+export default userZodSchema;
