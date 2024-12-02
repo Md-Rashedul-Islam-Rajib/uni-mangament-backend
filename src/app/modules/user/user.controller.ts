@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
 import sendResponse from '../../utilities/sendResponse';
+import { UserServices } from './user.service';
 
 
-export class UserController {
+export class UserControllers {
 
 static async createStudent (
         req: Request,
@@ -10,12 +11,12 @@ static async createStudent (
         next: NextFunction,
     ){
     try {
-        const { password, student: studentData } = req.body;
+        const { password, userData } = req.body;
 
 
-        const result = await UserServices.createStudentIntoDB(
+        const result = await UserServices.createUserIntoDB(
             password,
-            studentData,
+            userData,
         );
         
         sendResponse(
