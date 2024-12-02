@@ -14,7 +14,7 @@ static async createStudent (
         const { password, userData } = req.body;
 
 
-        const result = await UserServices.createUserIntoDB(
+        const result = await UserServices.createStudentIntoDB(
             password,
             userData,
         );
