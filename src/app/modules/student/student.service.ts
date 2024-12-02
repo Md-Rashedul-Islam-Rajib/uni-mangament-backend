@@ -1,6 +1,6 @@
 import { StudentModel } from "./student.model";
 
-export class StudentService {
+export class StudentServices {
 
     static async getAllStudentsFromDB(){
         const result = await StudentModel.find();
