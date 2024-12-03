@@ -1,24 +1,12 @@
 import { model, Schema } from "mongoose";
 import { TSemester } from "./semester.types";
+import { months, semesterCode, semesterName } from "./semester.constans";
 
-const months = [
-    'January' ,
-        'February' ,
-        'March' ,
-        'April' ,
-        'May' ,
-        'June' ,
-        'July' ,
-        'August' ,
-        'September' ,
-        'October' ,
-        'November' ,
-        'December'
-];
+
 const semesterSchema = new Schema<TSemester>({
     name: {
         type: String,
-        enum: ['Autumn', 'Summer', 'Fall'],
+        enum: semesterName,
         required: true,
     },
     year: {
@@ -27,7 +15,7 @@ const semesterSchema = new Schema<TSemester>({
     },
     code: {
         type: String,
-        enum: ['01', '02', '03'],
+        enum: semesterCode,
         required: true,
     },
     startMonth: {
