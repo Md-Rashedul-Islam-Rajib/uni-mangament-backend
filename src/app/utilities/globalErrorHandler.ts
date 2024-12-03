@@ -1,7 +1,7 @@
 import mongoose, { MongooseError } from 'mongoose';
 import { Request, Response, NextFunction } from 'express';
-import { ValidationErrorResponse } from './error.type';
 import { ZodError } from 'zod';
+import { ValidationErrorResponse } from './error.types';
 
 export const handleErrors = (
     err: unknown,
