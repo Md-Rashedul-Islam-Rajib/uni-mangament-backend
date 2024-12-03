@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { UserControllers } from './user.controller';
-import validateRequest from '../../middlewares/validateRquest';
+import validateRequest from '../../middlewares/validateRequest';
 import { createStudentValidationSchema } from '../student/student.zodSchema';
 
 const UserRouter: Router =Router();
