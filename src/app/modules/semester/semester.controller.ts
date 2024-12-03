@@ -1,17 +1,15 @@
 import {  Request, Response } from 'express';
 import sendResponse from '../../utilities/sendResponse';
-import { UserServices } from './user.service';
 import catchAsync from '../../utilities/catchAsyncFn';
+import { SemesterServices } from './semester.service';
 
 export class SemesterControllers {
     static createSemester = catchAsync(async (req: Request, res: Response) => {
-        const { password, studentData } = req.body;
 
         const result = await SemesterServices.createSemesterIntoDB(
-            password,
-            studentData,
+            req.body
         );
 
-        sendResponse(res, 201, true, 'User created successfully', result);
+        sendResponse(res, 201, true, 'Semester created successfully', result);
     });
 }
