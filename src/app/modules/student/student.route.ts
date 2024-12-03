@@ -1,12 +1,13 @@
-import express from 'express';
-// import { StudentControllers } from './student.controller';
+import { Router } from 'express';
+import { StudentControllers } from './student.controller';
 
-const router = express.Router();
 
-router.get('/:studentId', StudentControllers.getSingleStudent);
+const StudentRouter: Router = Router();
 
-router.delete('/:studentId', StudentControllers.deleteStudent);
+StudentRouter.get('/:studentId', StudentControllers.getSingleStudent);
 
-router.get('/', StudentControllers.getAllStudents);
+StudentRouter.delete('/:studentId', StudentControllers.deleteStudent);
 
-export const StudentRoutes = router;
+StudentRouter.get('/', StudentControllers.getAllStudents);
+
+export default StudentRouter;

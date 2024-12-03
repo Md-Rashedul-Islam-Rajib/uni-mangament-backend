@@ -2,14 +2,15 @@
     "main": "./dist/server.js",
     "scripts": {
         "build": "tsc",
-        "start:prod": "node ./dist/server.js",
-        "start:dev": "ts-node-dev --respawn --transpile-only ./src/server.ts",
+        "prod": "node ./dist/server.js",
+        "dev": "ts-node-dev --respawn --transpile-only ./src/server.ts",
         "lint": "eslint .",
         "lint:fix": "eslint . --fix",
         "prettier": "prettier --ignore-path .gitignore --write \"./src/**/*.+(js|ts|json)\"",
         "prettier:fix": "prettier --write src"
     },
     "dependencies": {
+        "@types/bcrypt": "^5.0.2",
         "bcrypt": "^5.1.1",
         "cors": "^2.8.5",
         "dotenv": "^16.4.5",

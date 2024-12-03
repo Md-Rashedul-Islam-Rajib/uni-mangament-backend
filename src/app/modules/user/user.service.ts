@@ -1,25 +1,38 @@
 import config from "../../config";
+import { StudentModel } from "../student/student.model";
+import { TStudent } from "../student/student.types";
 import { UserModel } from "./user.model";
-import { TNewUser, TUser } from "./user.types";
+import { TUser} from "./user.types";
 
 export class UserServices {
-    static async createStudentIntoDB(password: string, userData: TUser) {
+    static async createStudentIntoDB(password: string, studentData: TStudent) {
         // checking user existence
-        const userExists = await UserModel.findById(userData.id);
+        const userExists = await UserModel.findById(studentData.id);
         if (userExists) {
             throw new Error("User with this id already exists");
         }
         
         //creating a user object
-        const newUser : TNewUser = {};
+        const userData : Partial<TUser> = {};
         
         //using default password if password is not provided
-        newUser.password = password || config.default_password as string;
+        userData.password = password || config.default_password as string;
 
         // setting student role
-        newUser.role = "student";
+        userData.role = "student";
 
-        const result = await UserModel.create(userData);
-        return result;
+        // setting id manually
+        userData.id = "2025010001";
+
+        // creating user
+        const newUser = await UserModel.create(userData);
+        
+        // creating a student
+        if (Object.keys(newUser).length) {
+            studentData.id = newUser.id;
+            studentData.user = newUser._id;
+        }
+        const newStudent = await StudentModel.create(studentData);
+        return newStudent;
     }
 }

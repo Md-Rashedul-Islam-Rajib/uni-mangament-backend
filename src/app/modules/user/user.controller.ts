@@ -11,12 +11,12 @@ static async createStudent (
         next: NextFunction,
     ){
     try {
-        const { password, userData } = req.body;
+        const { password, studentData } = req.body;
 
 
         const result = await UserServices.createStudentIntoDB(
             password,
-            userData,
+            studentData
         );
         
         sendResponse(

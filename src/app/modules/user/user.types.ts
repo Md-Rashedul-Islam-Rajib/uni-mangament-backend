@@ -7,7 +7,3 @@ export type TUser = {
     isDeleted: boolean;
 };
 
-export type TNewUser = {
-    password: string,
-    role : string
-}
