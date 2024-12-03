@@ -44,4 +44,4 @@ semesterSchema.pre("save", async function (next) {
     next();
 });
 
-export const SemesterModel = model("semester", semesterSchema);
+export const SemesterModel = model("Semester", semesterSchema);

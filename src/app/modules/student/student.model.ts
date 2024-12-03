@@ -94,7 +94,7 @@ const studentSchema = new Schema<TStudent, IStudent>(
             },
             required: [true, 'Gender is required'],
         },
-        dateOfBirth: { type: String },
+        dateOfBirth: { type: Date },
         email: {
             type: String,
             required: [true, 'Email is required'],
@@ -108,7 +108,7 @@ const studentSchema = new Schema<TStudent, IStudent>(
             type: String,
             required: [true, 'Emergency contact number is required'],
         },
-        bloodGroup: {
+        bloogGroup: {
             type: String,
             enum: {
                 values: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
@@ -132,6 +132,10 @@ const studentSchema = new Schema<TStudent, IStudent>(
             required: [true, 'Local guardian information is required'],
         },
         profileImg: { type: String },
+        admissionSemester: {
+            type: Schema.Types.ObjectId,
+            ref: 'Semester',
+        },
         isDeleted: {
             type: Boolean,
             default: false,
