@@ -1,16 +1,15 @@
 import { NextFunction, Request, Response } from 'express';
 import sendResponse from '../../utilities/sendResponse';
 import { UserServices } from './user.service';
+import catchAsync from '../../utilities/catchAsyncFn';
 
 
 export class UserControllers {
 
-static async createStudent (
+    static createStudent = catchAsync(async (
         req: Request,
-        res: Response,
-        next: NextFunction,
-    ){
-    try {
+        res: Response
+    ) => {
         const { password, studentData } = req.body;
 
 
@@ -26,9 +25,7 @@ static async createStudent (
             "User created successfully",
             result
         );
-    } catch (err) {
-        next(err);
     }
-};
+    );
 
     }

@@ -1,36 +1,26 @@
 import { NextFunction, Request, Response } from 'express';
 import { StudentServices } from './student.service';
 import sendResponse from '../../utilities/sendResponse';
-
+import catchAsync from '../../utilities/catchAsyncFn';
 
 export class StudentControllers {
+    static getSingleStudent = catchAsync(
+        async (req: Request, res: Response) => {
+            const { studentId } = req.params;
+            const result =
+                await StudentServices.getSingleStudentFromDB(studentId);
 
-    static async getSingleStudent (
-        req: Request,
-    res: Response,
-    next: NextFunction,
-){
-    try {
-        const { studentId } = req.params;
-        const result = await StudentServices.getSingleStudentFromDB(studentId);
+            sendResponse(
+                res,
+                200,
+                true,
+                'Student is retrieved successfully',
+                result,
+            );
+        },
+    );
 
-        sendResponse(res, 
-            200,
-            true,
-            'Student is retrieved succesfully',
-            result,
-        );
-    } catch (err) {
-        next(err);
-    }
-};
-
-static async getAllStudents(
-    req: Request,
-    res: Response,
-    next: NextFunction,
-) {
-    try {
+    static getAllStudents = catchAsync(async (req: Request, res: Response) => {
         const result = await StudentServices.getAllStudentsFromDB();
 
         sendResponse(
@@ -40,30 +30,12 @@ static async getAllStudents(
             'Student is retrieved succesfully',
             result,
         );
-    } catch (err) {
-        next(err);
-    }
-};
+    });
 
-static async deleteStudent (
-    req: Request,
-    res: Response,
-    next: NextFunction,
-) {
-    try {
+    static deleteStudent = catchAsync(async (req: Request, res: Response) => {
         const { studentId } = req.params;
         const result = await StudentServices.deleteStudentFromDB(studentId);
-        
-        sendResponse(
-            res,
-            200,
-            true,
-            'Student is deleted succesfully',
-            result,
-        );
-    } catch (err) {
-        next(err);
-    }
-};
 
-        }
+        sendResponse(res, 200, true, 'Student is deleted succesfully', result);
+    });
+}
