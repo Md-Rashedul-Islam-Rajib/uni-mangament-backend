@@ -1,4 +1,6 @@
-export const months = [
+import { TMonths, TSemesterCode, TSemesterName } from "./semester.types";
+
+export const months:TMonths[] = [
     'January',
     'February',
     'March',
@@ -13,5 +15,5 @@ export const months = [
     'December',
 ];
 
-export const semesterName = ['Autumn', 'Summer', 'Fall'];
-export const semesterCode = ['01', '02', '03'];
+export const semesterName: TSemesterName[] = ['Autumn', 'Summer', 'Fall'];
+export const semesterCode: TSemesterCode[] = ['01', '02', '03'];
