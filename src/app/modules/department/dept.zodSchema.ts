@@ -19,4 +19,4 @@ export const departmentCreationSchema = z.object({
     }),
 });
 
-const departmentUpdateSchema = departmentCreationSchema.partial();
+export const departmentUpdateSchema = departmentCreationSchema.partial();
