@@ -12,4 +12,9 @@ export class DepartmentServices {
         const result = await DepartmentModel.find().populate("faculty");
         return result;
     }
+
+    static async getSingleDepartment(id: string) {
+        const result = await DepartmentModel.findById(id).populate("faculty");
+        return result;
+    }
 }
