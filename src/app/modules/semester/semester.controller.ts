@@ -12,4 +12,9 @@ export class SemesterControllers {
 
         sendResponse(res, 201, true, 'Semester created successfully', result);
     });
+
+    static getAllSemester = catchAsync(async (req: Request, res: Response) => {
+        const semesters = await SemesterServices.
+        sendResponse(res,200,"Semesters are retrieved successfully",semesters)
+    });
 }
