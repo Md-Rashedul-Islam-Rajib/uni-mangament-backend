@@ -8,5 +8,6 @@ const SemesterRouter: Router = Router();
 SemesterRouter.post('/create-semester', validateRequest(createSemesterValidationSchema), SemesterControllers.createSemester);
 
 SemesterRouter.get('/', SemesterControllers.getAllSemester);
+SemesterRouter.get('/:id', SemesterControllers.getSingleSemester);
 
 export default SemesterRouter;
