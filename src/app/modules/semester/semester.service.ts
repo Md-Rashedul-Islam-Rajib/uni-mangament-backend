@@ -18,4 +18,9 @@ export class SemesterServices {
         const result = await SemesterModel.find();
         return result;
     }
+
+    static async getSingleSemester(id: string) {
+        const result = await SemesterModel.findById(id);
+        return result;
+    }
 }
