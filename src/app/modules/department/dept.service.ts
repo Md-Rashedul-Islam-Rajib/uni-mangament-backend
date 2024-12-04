@@ -17,4 +17,10 @@ export class DepartmentServices {
         const result = await DepartmentModel.findById(id).populate("faculty");
         return result;
     }
+
+    static async updateDepartment(id: string, payload: Partial<TDepartment>) {
+        const result = await DepartmentModel.findByIdAndUpdate({ _id: id }, payload, { new: true });
+        return result;
+    }
+
 }
