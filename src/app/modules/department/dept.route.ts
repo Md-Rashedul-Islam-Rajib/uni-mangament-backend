@@ -5,4 +5,7 @@ import { DepartmentControllers } from "./dept.controller";
 
 const DepartmentRouter: Router = Router();
 
-DepartmentRouter.post('/create-department', validateRequest(departmentCreationSchema),DepartmentControllers.createDepartment);
+DepartmentRouter.post('/create-department', validateRequest(departmentCreationSchema), DepartmentControllers.createDepartment);
+DepartmentRouter.get('/',DepartmentControllers.getAllDepartment);
+
+export default DepartmentRouter;
