@@ -15,6 +15,15 @@ export class SemesterControllers {
 
     static getAllSemester = catchAsync(async (req: Request, res: Response) => {
         const semesters = await SemesterServices.
-        sendResponse(res,200,"Semesters are retrieved successfully",semesters)
+        sendResponse(res,200,true,"Semesters are retrieved successfully",semesters)
+    });
+
+    static getSingleSemester = catchAsync(async (req: Request, res: Response) => {
+        const semester = await SemesterServices;
+            if(!semester){
+                throw new Error("Semester not found");
+            
+    }
+        sendResponse(res, 200, true,"Semester is retrieved successfully", semester);
     });
 }
