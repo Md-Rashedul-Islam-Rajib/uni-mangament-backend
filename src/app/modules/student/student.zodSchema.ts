@@ -48,6 +48,7 @@ export const createStudentValidationSchema = z.object({
                 'O+',
                 'O-',
             ]),
+            academicDepartment: z.string(),
             presentAddress: z.string(),
             permanentAddress: z.string(),
             guardian: guardianValidationSchema,

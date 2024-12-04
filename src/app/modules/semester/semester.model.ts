@@ -29,7 +29,8 @@ const semesterSchema = new Schema<TSemester>({
         required: true
     },
 }, {
-    timestamps : true
+    timestamps: true,
+    versionKey:false
 }
 );
 
