@@ -8,3 +8,4 @@ export const createSemesterValidationSchema = z.object({
     startMonth: z.enum([...months] as [string, ...string[]]),
     endMonth: z.enum([...months] as [string, ...string[]]),
 });
+export const updateSemesterValidationSchema = createSemesterValidationSchema.partial();
