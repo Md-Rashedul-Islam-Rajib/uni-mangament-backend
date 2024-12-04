@@ -14,12 +14,12 @@ export class SemesterControllers {
     });
 
     static getAllSemester = catchAsync(async (req: Request, res: Response) => {
-        const semesters = await SemesterServices.
-        sendResponse(res,200,true,"Semesters are retrieved successfully",semesters)
+        const semesters = await SemesterServices.getAllSemester();
+        sendResponse(res, 200, true, "Semesters are retrieved successfully", semesters);
     });
 
     static getSingleSemester = catchAsync(async (req: Request, res: Response) => {
-        const semester = await SemesterServices;
+        const semester = await SemesterServices.getSingleSemester(req.params.id);
             if(!semester){
                 throw new Error("Semester not found");
             
@@ -28,7 +28,7 @@ export class SemesterControllers {
     });
 
     static updateSemester = catchAsync(async (req: Request, res: Response) => {
-        const semester = await SemesterServices;
+        const semester = await SemesterServices.updateSemester(req.params.id,req.body);
         if (!semester) {
             throw new Error('Semester not updatable');
         }

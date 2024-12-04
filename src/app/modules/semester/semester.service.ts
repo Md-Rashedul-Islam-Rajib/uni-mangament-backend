@@ -23,4 +23,13 @@ export class SemesterServices {
         const result = await SemesterModel.findById(id);
         return result;
     }
+
+    static async updateSemester(id: string, payload: Partial<TSemester>) {
+        if (payload.name && payload.code && semesterNameCodeMapper[payload.name] !== payload.code) {
+            throw new Error(`Invalid semester code. ${payload.code} doesn't align with ${payload.name} semester`);
+        }
+        const result= await SemesterModel.findByIdAndUpdate({_id :id},payload,{new:true});
+        return result;
+    }
+
 }
