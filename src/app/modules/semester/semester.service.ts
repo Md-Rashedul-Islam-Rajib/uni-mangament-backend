@@ -13,4 +13,9 @@ export class SemesterServices {
         const result = await SemesterModel.create(payload);
         return result;
     }
+
+    static async getAllSemester() {
+        const result = await SemesterModel.find();
+        return result;
+    }
 }
