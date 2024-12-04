@@ -26,4 +26,12 @@ export class SemesterControllers {
     }
         sendResponse(res, 200, true,"Semester is retrieved successfully", semester);
     });
+
+    static updateSemester = catchAsync(async (req: Request, res: Response) => {
+        const semester = await SemesterServices;
+        if (!semester) {
+            throw new Error('Semester not updatable');
+        }
+        sendResponse(res, 200, true, "Semester is updated successfully", semester);
+    });
 }
