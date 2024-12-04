@@ -1,4 +1,3 @@
-import { Department } from './dept.model';
 import { Schema, model } from 'mongoose';
 import { TDepartment } from './dept.types';
 
