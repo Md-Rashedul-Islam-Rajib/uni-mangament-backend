@@ -7,4 +7,6 @@ const FacultyRouter: Router = Router();
 
 FacultyRouter.post("/create-faculty", validateRequest(facultyCreationSchema), FacultyControllers.createFaculty);
 
-FacultyRouter.get("/",FacultyControllers.getAllFaculties);
+FacultyRouter.get("/", FacultyControllers.getAllFaculties);
+
+FacultyRouter.get("/:id", FacultyControllers.getSingleFaculty);
