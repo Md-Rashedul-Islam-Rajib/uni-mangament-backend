@@ -11,4 +11,9 @@ export class FacultyServices {
         const result = await FacultyModel.find();
         return result;
     }
+
+    static async getSingleFaculty(id: string) {
+        const result = await FacultyModel.findById(id);
+        return result;
+    }
 }
