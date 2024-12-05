@@ -1,5 +1,5 @@
-import { z } from "zod";
-import { months, semesterCode, semesterName } from "./semester.constans";
+import { z } from 'zod';
+import { months, semesterCode, semesterName } from './semester.constans';
 
 export const createSemesterValidationSchema = z.object({
     name: z.enum([...semesterName] as [string, ...string[]]),
@@ -8,4 +8,5 @@ export const createSemesterValidationSchema = z.object({
     startMonth: z.enum([...months] as [string, ...string[]]),
     endMonth: z.enum([...months] as [string, ...string[]]),
 });
-export const updateSemesterValidationSchema = createSemesterValidationSchema.partial();
+export const updateSemesterValidationSchema =
+    createSemesterValidationSchema.partial();

@@ -3,7 +3,7 @@ import { UserControllers } from './user.controller';
 import validateRequest from '../../middlewares/validateRequest';
 import { createStudentValidationSchema } from '../student/student.zodSchema';
 
-const UserRouter: Router =Router();
+const UserRouter: Router = Router();
 
 UserRouter.post(
     '/create-student',

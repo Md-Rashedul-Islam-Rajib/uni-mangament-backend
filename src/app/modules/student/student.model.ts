@@ -1,6 +1,11 @@
 import { Schema, model } from 'mongoose';
-import {  IStudent, TGuardian, TLocalGuardian, TStudent, TUserName } from './student.types';
-
+import {
+    IStudent,
+    TGuardian,
+    TLocalGuardian,
+    TStudent,
+    TUserName,
+} from './student.types';
 
 const userNameSchema = new Schema<TUserName>({
     firstName: {

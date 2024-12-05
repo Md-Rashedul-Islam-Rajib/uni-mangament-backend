@@ -1,5 +1,4 @@
-import { z } from "zod";
-
+import { z } from 'zod';
 
 const userZodSchema = z.object({
     password: z

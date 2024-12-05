@@ -1,7 +1,6 @@
 import { Schema, model } from 'mongoose';
 import { TDepartment } from './dept.types';
 
-
 const departmentSchema = new Schema<TDepartment>(
     {
         name: {
@@ -32,9 +31,7 @@ departmentSchema.pre('save', async function (next) {
     });
 
     if (departmentExists) {
-        throw new Error(
-            ` Department with ${this.name} is already exists!`
-        );
+        throw new Error(` Department with ${this.name} is already exists!`);
     }
 
     next();
@@ -45,12 +42,13 @@ departmentSchema.pre('findOneAndUpdate', async function (next) {
     const departmentExists = await DepartmentModel.findOne(query);
 
     if (!departmentExists) {
-        throw new Error(
-            'This department does not exist!'
-        );
+        throw new Error('This department does not exist!');
     }
 
     next();
 });
 
-export const DepartmentModel = model<TDepartment>('Department', departmentSchema);
+export const DepartmentModel = model<TDepartment>(
+    'Department',
+    departmentSchema,
+);

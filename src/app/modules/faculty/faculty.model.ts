@@ -1,5 +1,5 @@
-import { model, Schema } from "mongoose";
-import { TFaculty } from "./faculty.types";
+import { model, Schema } from 'mongoose';
+import { TFaculty } from './faculty.types';
 
 const FacultySchema = new Schema<TFaculty>(
     {
@@ -14,7 +14,4 @@ const FacultySchema = new Schema<TFaculty>(
     },
 );
 
-export const Faculty = model<TFaculty>(
-    'Faculty',
-    FacultySchema,
-);
+export const Faculty = model<TFaculty>('Faculty', FacultySchema);
