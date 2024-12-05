@@ -6,4 +6,9 @@ export class FacultyServices {
         const result = await FacultyModel.create(payload);
         return result;
     }
+
+    static async getAllFaculties() {
+        const result = await FacultyModel.find();
+        return result;
+    }
 }
