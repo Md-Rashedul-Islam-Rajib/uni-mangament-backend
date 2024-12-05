@@ -7,6 +7,7 @@ import { UserModel } from './user.model';
 import { TUser } from './user.types';
 import { generateStudentId } from './user.utilities';
 import { DepartmentModel } from '../department/dept.model';
+import { startSession } from 'mongoose';
 
 export class UserServices {
     static async createStudentIntoDB(password: string, payload: TStudent) {
@@ -38,18 +39,35 @@ export class UserServices {
         if (!department) {
             throw new Error('Department is not found');
         }
-        // setting id
-        userData.id = await generateStudentId(semester, department);
 
-        // creating user
-        const newUser = await UserModel.create(userData);
+        const session = (await startSession());
+            
+            session.startTransaction();
 
-        // creating a student
-        if (Object.keys(newUser).length) {
-            payload.id = newUser.id;
-            payload.user = newUser._id;
+        
+
+        try {
+            // setting id
+            userData.id = await generateStudentId(semester, department);
+
+            // creating user
+            const newUser = await UserModel.create([userData,{session}]);
+
+            // creating a student
+            if (newUser.length) {
+                payload.id = newUser[0].id;
+                payload.user = newUser[0]._id;
+            }
+            const newStudent = await StudentModel.create([payload],{session});
+            
+            await session.commitTransaction();
+            session.endSession();
+
+            return newStudent[0];
+        } catch (error) {
+            await session.abortTransaction();
+            session.endSession();
+            throw error;
         }
-        const newStudent = await StudentModel.create(payload);
-        return newStudent;
     }
 }
