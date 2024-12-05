@@ -2,7 +2,7 @@ import { StudentModel } from './student.model';
 
 export class StudentServices {
     static async getAllStudentsFromDB() {
-        const result = await StudentModel.find();
+        const result = await StudentModel.find().populate("admissionSemester").populate("academicDepartment");
         return result;
     }
 

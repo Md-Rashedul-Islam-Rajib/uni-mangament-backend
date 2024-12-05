@@ -8,12 +8,13 @@ export class DepartmentServices {
     }
 
     static async getAllDepartments() {
-        const result = await DepartmentModel.find().populate('faculty');
+        const result = await DepartmentModel.find().populate('academicFaculty');
         return result;
     }
 
     static async getSingleDepartment(id: string) {
-        const result = await DepartmentModel.findById(id).populate('faculty');
+        const result =
+            await DepartmentModel.findById(id).populate('academicFaculty');
         return result;
     }
 

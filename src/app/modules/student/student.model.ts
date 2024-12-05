@@ -113,7 +113,7 @@ const studentSchema = new Schema<TStudent, IStudent>(
             type: String,
             required: [true, 'Emergency contact number is required'],
         },
-        bloogGroup: {
+        bloodGroup: {
             type: String,
             enum: {
                 values: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
