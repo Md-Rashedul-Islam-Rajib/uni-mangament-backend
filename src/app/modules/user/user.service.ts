@@ -7,7 +7,7 @@ import { UserModel } from './user.model';
 import { TUser } from './user.types';
 import { generateStudentId } from './user.utilities';
 import { DepartmentModel } from '../department/dept.model';
-import { startSession } from 'mongoose';
+import mongoose, { startSession } from 'mongoose';
 
 export class UserServices {
     static async createStudentIntoDB(password: string, payload: TStudent) {
@@ -40,7 +40,7 @@ export class UserServices {
             throw new Error('Department is not found');
         }
 
-        const session = (await startSession());
+        const session = await mongoose.startSession();
             
             session.startTransaction();
 
