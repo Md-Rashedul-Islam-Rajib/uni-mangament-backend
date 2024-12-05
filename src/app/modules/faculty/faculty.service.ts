@@ -16,4 +16,8 @@ export class FacultyServices {
         const result = await FacultyModel.findById(id);
         return result;
     }
+    static async updateFaculty(id: string, payload: Partial<TFaculty>) {
+        const result = await FacultyModel.findByIdAndUpdate({ _id: id }, payload, { new: true });
+        return result;
+    }
 }
