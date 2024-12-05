@@ -16,7 +16,11 @@ export class FacultyControllers {
 
     static getSingleFaculty = catchAsync(async (req: Request, res: Response) => {
         const result = await FacultyServices.getSingleFaculty(req.params.id);
-        sendResponse(res,200,true,"Faculty is retrived successfully", result);
+        sendResponse(res,200,true,"Faculty is retrieved successfully", result);
     });
 
+    static updateFaculty = catchAsync(async (req: Request, res: Response) => {
+        const result = await FacultyServices.updateFaculty(req.params.id,req.body);
+        sendResponse(res,200,true,"Faculty updated successfully",result);
+    });
 }
