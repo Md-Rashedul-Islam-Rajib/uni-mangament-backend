@@ -5,4 +5,6 @@ import { FacultyControllers } from "./faculty.controller";
 
 const FacultyRouter: Router = Router();
 
-FacultyRouter.post("/create-faculty", validateRequest(facultyCreationSchema),FacultyControllers.createFaculty);
+FacultyRouter.post("/create-faculty", validateRequest(facultyCreationSchema), FacultyControllers.createFaculty);
+
+FacultyRouter.get("/",FacultyControllers.getAllFaculties);
