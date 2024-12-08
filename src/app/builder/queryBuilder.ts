@@ -49,6 +49,15 @@ class QueryBuilder<T> {
         this.modelQuery = this.modelQuery.sort(sortFields);
         return this;
     }
+
+    paginate() {
+        const page = Math.max(Number(this.query?.page) || 1, 1); // Ensure page >= 1
+        const limit = Math.max(Number(this.query?.limit) || 10, 1); // Ensure limit >= 1
+        const skip = (page - 1) * limit;
+
+        this.modelQuery = this.modelQuery.skip(skip).limit(limit);
+        return this;
+    }
 }
 
 
