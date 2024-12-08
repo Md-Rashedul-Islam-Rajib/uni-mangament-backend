@@ -3,6 +3,7 @@ import { StudentControllers } from './student.controller';
 
 const StudentRouter: Router = Router();
 
+
 StudentRouter.get('/:studentId', StudentControllers.getSingleStudent);
 
 StudentRouter.delete('/:studentId', StudentControllers.deleteStudent);

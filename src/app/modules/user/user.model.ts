@@ -8,6 +8,7 @@ const userSchema = new Schema<TUser>(
         id: {
             type: String,
             required: true,
+            unique: true
         },
         password: {
             type: String,
@@ -33,6 +34,7 @@ const userSchema = new Schema<TUser>(
     },
     {
         timestamps: true,
+        versionKey : false
     },
 );
 

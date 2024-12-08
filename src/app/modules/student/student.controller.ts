@@ -27,7 +27,7 @@ export class StudentControllers {
             res,
             200,
             true,
-            'Student is retrieved succesfully',
+            'Student is retrieved successfully',
             result,
         );
     });
@@ -36,6 +36,6 @@ export class StudentControllers {
         const { studentId } = req.params;
         const result = await StudentServices.deleteStudentFromDB(studentId);
 
-        sendResponse(res, 200, true, 'Student is deleted succesfully', result);
+        sendResponse(res, 200, true, 'Student is deleted successfully', result);
     });
 }

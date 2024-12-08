@@ -49,14 +49,15 @@ export class UserServices {
         try {
             // setting id
             userData.id = await generateStudentId(semester, department);
+            console.log(userData);
 
             // creating user
-            const newUser = await UserModel.create([userData,{session}]);
+            const newUser = await UserModel.create([userData],{session});
 
             // creating a student
             if (newUser.length) {
-                payload.id = newUser[0].id;
-                payload.user = newUser[0]._id;
+                payload.id = newUser[0]?.id;
+                payload.user = newUser[0]?._id;
             }
             const newStudent = await StudentModel.create([payload],{session});
             

@@ -5,11 +5,11 @@ import catchAsync from '../../utilities/catchAsyncFn';
 
 export class UserControllers {
     static createStudent = catchAsync(async (req: Request, res: Response) => {
-        const { password, studentData } = req.body;
+        const { password, student } = req.body;
 
         const result = await UserServices.createStudentIntoDB(
             password,
-            studentData,
+            student,
         );
 
         sendResponse(res, 201, true, 'User created successfully', result);
