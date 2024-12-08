@@ -21,6 +21,27 @@ class QueryBuilder<T> {
         }
         return this;
     }
+
+    filter() {
+        const queryObj = { ...this.query };
+
+        // Exclude non-filter fields directly using a set
+        const excludeFields = new Set([
+            'searchTerm',
+            'sort',
+            'limit',
+            'page',
+            'fields',
+        ]);
+        for (const key of Object.keys(queryObj)) {
+            if (excludeFields.has(key)) {
+                delete queryObj[key];
+            }
+        }
+
+        this.modelQuery = this.modelQuery.find(queryObj as FilterQuery<T>);
+        return this;
+    }
 }
 
 
