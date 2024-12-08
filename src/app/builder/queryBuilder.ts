@@ -65,6 +65,10 @@ class QueryBuilder<T> {
         this.modelQuery = this.modelQuery.select(fieldsToSelect);
         return this;
     }
+
+    getQuery() {
+        return this.modelQuery;
+    }
 }
 
 
