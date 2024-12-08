@@ -1,4 +1,4 @@
-import { Query } from "mongoose";
+import { FilterQuery, Query } from "mongoose";
 
 class QueryBuilder<T> {
     private modelQuery: Query<T[], T>;

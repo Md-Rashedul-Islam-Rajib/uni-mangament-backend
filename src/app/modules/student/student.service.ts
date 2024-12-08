@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import { StudentModel } from './student.model';
 import { UserModel } from '../user/user.model';
 import QueryBuilder from '../../builder/queryBuilder';
+import { studentSearchableFields } from './student.constants';
 
 export class StudentServices {
     static async getAllStudentsFromDB(query: Record<string,unknown>) {
@@ -22,7 +23,7 @@ export class StudentServices {
             .paginate()
             .fields();
 
-        const result = await studentQuery.modelQuery;
+        const result = await studentQuery.getQuery;
         return result;
     }
 
