@@ -1,6 +1,5 @@
 import { model, Schema } from "mongoose";
-import { Faculty, TUserName } from "./member.types";
-import { TFaculty } from "../faculty/faculty.types";
+import { Faculty, TFacultyMember, TUserName } from "./member.types";
 import { BloodGroup, Gender } from "./member.constant";
 
 const userNameSchema = new Schema<TUserName>({
@@ -22,7 +21,7 @@ const userNameSchema = new Schema<TUserName>({
     },
 });
 
-const facultySchema = new Schema<TFaculty, Faculty>(
+const facultySchema = new Schema<TFacultyMember, Faculty>(
     {
         id: {
             type: String,
@@ -40,7 +39,7 @@ const facultySchema = new Schema<TFaculty, Faculty>(
             required: [true, 'Designation is required'],
         },
         name: {
-            type: userNameSchema,
+            type: userNameSchema, // Use the sub-schema correctly here
             required: [true, 'Name is required'],
         },
         gender: {
@@ -98,6 +97,7 @@ const facultySchema = new Schema<TFaculty, Faculty>(
     },
 );
 
+
 // generating full name
 facultySchema.virtual('fullName').get(function () {
     return (
@@ -131,4 +131,4 @@ facultySchema.statics.isUserExists = async function (id: string) {
     return existingUser;
 };
 
-export const FacultyMemberModel = model<TFaculty, Faculty>('Faculty', facultySchema);
+export const FacultyMemberModel = model<TFacultyMember, Faculty>('Faculty', facultySchema);
