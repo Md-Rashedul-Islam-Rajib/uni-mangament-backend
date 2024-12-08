@@ -42,6 +42,13 @@ class QueryBuilder<T> {
         this.modelQuery = this.modelQuery.find(queryObj as FilterQuery<T>);
         return this;
     }
+
+    sort() {
+        const sortFields =
+            (this.query?.sort as string)?.split(',').join(' ') || '-createdAt';
+        this.modelQuery = this.modelQuery.sort(sortFields);
+        return this;
+    }
 }
 
 
