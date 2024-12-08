@@ -1,15 +1,28 @@
 import mongoose from 'mongoose';
 import { StudentModel } from './student.model';
 import { UserModel } from '../user/user.model';
+import QueryBuilder from '../../builder/queryBuilder';
 
 export class StudentServices {
-    static async getAllStudentsFromDB() {
-        const result = await StudentModel.find().populate("admissionSemester").populate({
-            path: "academicDepartment",
-            populate: {
-                path : "academicFaculty"
-            }
-        });
+    static async getAllStudentsFromDB(query: Record<string,unknown>) {
+        const studentQuery = new QueryBuilder(
+            StudentModel.find()
+                .populate('admissionSemester')
+                .populate({
+                    path: 'academicDepartment',
+                    populate: {
+                        path: 'academicFaculty',
+                    },
+                }),
+            query,
+        )
+            .search(studentSearchableFields)
+            .filter()
+            .sort()
+            .paginate()
+            .fields();
+
+        const result = await studentQuery.modelQuery;
         return result;
     }
 
