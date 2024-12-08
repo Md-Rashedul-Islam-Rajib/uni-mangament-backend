@@ -18,4 +18,11 @@ export class FacultymemberServices {
         return result;
 
     }
+
+    static async getSingleFacultyMember(id:string) {
+        const result =
+            await FacultyModel.findById(id).populate('academicDepartment');
+
+        return result;
+    }
 }
