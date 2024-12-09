@@ -4,10 +4,11 @@ import { StudentModel } from '../student/student.model';
 import { TStudent } from '../student/student.types';
 import { UserModel } from './user.model';
 import { TUser } from './user.types';
-import { generateStudentId } from './user.utilities';
+import { generateFacultyMemberID, generateStudentId } from './user.utilities';
 import { DepartmentModel } from '../department/dept.model';
 import mongoose, { startSession } from 'mongoose';
 import { TFacultyMember } from '../facultyMember/member.types';
+import { FacultyMemberModel } from '../facultyMember/member.model';
 
 export class UserServices {
     static async createStudentIntoDB(password: string, payload: TStudent) {
@@ -49,8 +50,6 @@ export class UserServices {
         try {
             // setting id
             userData.id = await generateStudentId(semester, department);
-            console.log(userData);
-
             // creating user
             const newUser = await UserModel.create([userData],{session});
 
@@ -89,10 +88,30 @@ export class UserServices {
         session.startTransaction();
     try {
         
-        userData.id =await generateStudentId
+        userData.id = await generateFacultyMemberID(department);
 
-    } catch (error) {
+        const newUser = await UserModel.create([userData], { session });
         
+        if (!newUser.length) {
+            throw new Error("Failed to create user");
+        }
+
+        payload.id = newUser[0].id;
+        payload.user = newUser[0]._id;
+
+        const newFacultyMember = await FacultyMemberModel.create([payload], { session });
+
+        if (!newFacultyMember) {
+            throw new Error("Failed to create faculty");
+        }
+
+        await session.commitTransaction();
+        await session.endSession();
+        return newFacultyMember;
+    } catch (error) {
+        await session.abortTransaction();
+        await session.endSession();
+        throw error;
     }
 }
 }
