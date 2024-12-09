@@ -39,7 +39,7 @@ export const updateUserNameValidationSchema = z.object({
     lastName: z.string().optional(),
 });
 
-export const updateFacultyValidationSchema = z.object({
+export const updateFacultyMemberValidationSchema = z.object({
     body: z.object({
         faculty: z.object({
             designation: z.string().optional(),
