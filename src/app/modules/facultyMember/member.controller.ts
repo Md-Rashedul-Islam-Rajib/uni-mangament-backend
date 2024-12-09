@@ -26,6 +26,13 @@ export class FacultyMemberControllers {
 
     });
 
+    static deleteFacultyMember = catchAsync(async (req, res) => {
+        const result = await FacultymemberServices.deleteFacultyMember(req.params.id);
+        
+        sendResponse(res,200,true,"Faculty member is deleted successfully",result);
+        
+    });
+
 
 
 
