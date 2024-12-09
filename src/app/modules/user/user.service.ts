@@ -1,4 +1,3 @@
-import { TSemester } from './../semester/semester.types';
 import config from '../../config';
 import { SemesterModel } from '../semester/semester.model';
 import { StudentModel } from '../student/student.model';
@@ -8,6 +7,7 @@ import { TUser } from './user.types';
 import { generateStudentId } from './user.utilities';
 import { DepartmentModel } from '../department/dept.model';
 import mongoose, { startSession } from 'mongoose';
+import { TFacultyMember } from '../facultyMember/member.types';
 
 export class UserServices {
     static async createStudentIntoDB(password: string, payload: TStudent) {
@@ -71,4 +71,28 @@ export class UserServices {
             throw error;
         }
     }
+
+    static async createFacultyMemberIntoDb(password: string, payload: TFacultyMember) {
+        const userData: Partial<TUser> = {};
+        
+        userData.password = password || config.default_password;
+
+        userData.role = "faculty";
+
+        const department = await DepartmentModel.findById(payload.academicDepartment);
+        
+        if(!department){
+            throw new Error("department is not found");
+    };
+
+    const session = await startSession();
+        session.startTransaction();
+    try {
+        
+        userData.id =await generateStudentId
+
+    } catch (error) {
+        
+    }
+}
 }
