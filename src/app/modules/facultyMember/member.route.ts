@@ -13,6 +13,6 @@ FacultyMemberRouter.get('/:id', FacultyControllers.getSingleFaculty);
 
 FacultyMemberRouter.patch('/:id', validateRequest(updateFacultyMemberValidationSchema), FacultyMemberControllers.updateFacultyMember);
 
-
+FacultyMemberRouter.delete('/:id', FacultyMemberControllers.deleteFacultyMember );
 
 export default FacultyMemberRouter;
