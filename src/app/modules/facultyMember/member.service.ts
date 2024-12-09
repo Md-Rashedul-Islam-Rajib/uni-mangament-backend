@@ -91,7 +91,7 @@ export class FacultymemberServices {
         } catch (error) {
             await session.abortTransaction();
             await session.endSession();
-            throw new Error(error);
+            throw new Error(String(error));
         }
     }
 }
