@@ -17,6 +17,14 @@ export class FacultyMemberControllers {
         sendResponse(res,200,true,"Faculty member is retrieved successfully",result);
         
     });
+    
+    static updateFacultyMember = catchAsync(async (req, res) => {
+        const result = await FacultymemberServices.updateFacultyMember(req.params.id, req.body);
+
+        sendResponse(res,200,true,"Faculty member is updated successfully",result);
+        
+
+    });
 
 
 
