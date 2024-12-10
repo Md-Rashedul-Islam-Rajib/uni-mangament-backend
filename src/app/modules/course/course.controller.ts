@@ -24,6 +24,11 @@ export class CourseControllers {
 
 
 
+    static updateCourse = catchAsync(async (req, res) => {
+        const result = await CourseServices.updateCourse(req.params.id,req.body);
+        sendResponse(res,200,true,"Course is updated successfully",result);
+    });
+
 
 
 
