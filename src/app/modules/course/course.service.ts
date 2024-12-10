@@ -133,7 +133,7 @@ export class CourseServices {
     }; 
 
 
-    static async assignFacultiesWithCourse(id: string, payload: Partial<TCoursefaculty>) {
+    static async assignFacultiesToACourse(id: string, payload: Partial<TCoursefaculty>) {
         const result = await CourseFacultyModel.findByIdAndUpdate(
             id,
             {
@@ -143,6 +143,20 @@ export class CourseServices {
             {
                 upsert: true,
                 new:true
+            }
+        );
+        return result;
+    };
+
+
+    static async removeFacultiesFromCourse(id: string, payload: Partial<TCoursefaculty>) {
+        const result = await CourseFacultyModel.findByIdAndUpdate(
+            id,
+            {
+                $pull : {faculties : {$in : payload}}
+            },
+            {
+                new: true
             }
         );
         return result;
