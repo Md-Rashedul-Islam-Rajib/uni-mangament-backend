@@ -16,4 +16,12 @@ export class AdminServices {
         return result;
     }
 
+
+    static async getSingleAdmin(id: string) {
+        const result = await AdminModel.findById(id);
+        return result;
+    };
+
+
+
 }
