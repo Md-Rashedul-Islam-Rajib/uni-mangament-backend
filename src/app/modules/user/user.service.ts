@@ -4,12 +4,13 @@ import { StudentModel } from '../student/student.model';
 import { TStudent } from '../student/student.types';
 import { UserModel } from './user.model';
 import { TUser } from './user.types';
-import { generateFacultyMemberID, generateStudentId } from './user.utilities';
+import { generateAdminId, generateFacultyMemberID, generateStudentId } from './user.utilities';
 import { DepartmentModel } from '../department/dept.model';
 import mongoose, { startSession } from 'mongoose';
 import { TFacultyMember } from '../facultyMember/member.types';
 import { FacultyMemberModel } from '../facultyMember/member.model';
 import { TAdmin } from '../admin/admin.types';
+import { AdminModel } from '../admin/admin.model';
 
 export class UserServices {
     static async createStudentIntoDB(password: string, payload: TStudent) {
@@ -124,14 +125,41 @@ export class UserServices {
 
         userData.role = "admin";
 
+        const admin = await AdminModel.findOne(payload.user);
+
+        if (!admin) {
+            throw new Error("admin is not found");
+        }
+
         const session = await startSession();
         session.startTransaction();
 
 
         try {
-            userData.id = await 
-        } catch (error) {
+            userData.id = await generateAdminId(admin);
+
+            const newUser = await UserModel.create([userData], { session });
             
+            if (!newUser.length) {
+                throw new Error("failed to create user");
+            }
+
+            payload.id = newUser[0].id;
+            payload.user = newUser[0]._id;
+            
+            const newAdmin = await AdminModel.create([payload], { session });
+            
+            if (!newAdmin) {
+                throw new Error("failed to create admin");
+            }
+
+            await session.commitTransaction();
+            await session.endSession();
+            return newAdmin;
+        } catch (error) {
+            await session.abortTransaction();
+            await session.endSession();
+            throw error;
         }
     
     };
