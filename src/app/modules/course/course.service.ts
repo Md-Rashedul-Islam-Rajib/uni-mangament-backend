@@ -121,6 +121,17 @@ export class CourseServices {
     };
 
 
+    static async deleteCourse(id: string) {
+        const result = await CourseModel.findByIdAndUpdate(
+            id,
+            { isDeleted: true },
+            {
+                new:true
+            }
+        );
+        return result;
+    }; 
+
 }
 
 
