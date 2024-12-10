@@ -12,6 +12,8 @@ CourseRouter.get("/", CourseControllers.getAllCourses);
 
 CourseRouter.post("/:id", CourseServices.getSingleCourse);
 
-CourseRouter.patch("/:id", validateRequest(updateCourseValidationSchema),CourseControllers.updateCourse);
+CourseRouter.patch("/:id", validateRequest(updateCourseValidationSchema), CourseControllers.updateCourse);
+
+CourseRouter.delete("/:id",CourseControllers.deleteCourse);
 
 export default CourseRouter;
