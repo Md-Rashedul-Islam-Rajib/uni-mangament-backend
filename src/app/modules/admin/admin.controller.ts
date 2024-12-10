@@ -17,4 +17,25 @@ export class AdminControllers {
     });
 
 
+    static updateAdmin = catchAsync(async (req, res) => {
+        const result = await AdminServices.updateAdmin(req.params.id, req.body);
+        sendResponse(res,200,true,"admin is updated successfully", result);
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
