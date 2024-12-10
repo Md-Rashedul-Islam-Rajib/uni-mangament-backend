@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
 import { BloodGroup, Gender } from './admin.constant';
-import { Admin, TAdmin, TUserName } from './admin.interface';
+import { Admin, TAdmin, TUserName } from './admin.types';
 
 const userNameSchema = new Schema<TUserName>({
     firstName: {
@@ -39,7 +39,7 @@ const adminSchema = new Schema<TAdmin, Admin>(
             required: [true, 'Designation is required'],
         },
         name: {
-            type: userNameSchema,
+            type: userNameSchema as unknown as typeof Schema.Types.Mixed,
             required: [true, 'Name is required'],
         },
         gender: {
@@ -94,13 +94,12 @@ const adminSchema = new Schema<TAdmin, Admin>(
 
 // generating full name
 adminSchema.virtual('fullName').get(function () {
-    return (
-        this?.name?.firstName +
-        '' +
-        this?.name?.middleName +
-        '' +
-        this?.name?.lastName
-    );
+   const name = this?.name as TUserName | undefined;
+
+   if (!name) return '';
+
+   const { firstName = '', middleName = '', lastName = '' } = name;
+   return `${firstName} ${middleName} ${lastName}`.trim();
 });
 
 // filter out deleted documents
