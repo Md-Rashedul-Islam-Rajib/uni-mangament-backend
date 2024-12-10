@@ -1,8 +1,8 @@
 import { startSession } from "mongoose";
 import QueryBuilder from "../../builder/queryBuilder";
 import { CourseSearchableFields } from "./course.constant";
-import { CourseModel } from "./course.model";
-import { TCourse } from "./course.types";
+import { CourseFacultyModel, CourseModel } from "./course.model";
+import { TCourse, TCoursefaculty } from "./course.types";
 
 export class CourseServices {
     static async createCourse(payload: TCourse) {
@@ -131,6 +131,22 @@ export class CourseServices {
         );
         return result;
     }; 
+
+
+    static async assignFacultiesWithCourse(id: string, payload: Partial<TCoursefaculty>) {
+        const result = await CourseFacultyModel.findByIdAndUpdate(
+            id,
+            {
+                course: id,
+                $addToSet: {faculties : {$each : payload}}
+            },
+            {
+                upsert: true,
+                new:true
+            }
+        );
+        return result;
+    };
 
 }
 
