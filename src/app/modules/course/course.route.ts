@@ -1,6 +1,6 @@
 import { Router } from "express";
 import validateRequest from "../../middlewares/validateRequest";
-import { createCourseValidationSchema, updateCourseValidationSchema } from "./course.zodSchema";
+import { createCourseValidationSchema, facultiesWithCourseValidationSchema, updateCourseValidationSchema } from "./course.zodSchema";
 import { CourseServices } from "./course.service";
 import { CourseControllers } from "./course.controller";
 
@@ -14,6 +14,8 @@ CourseRouter.post("/:id", CourseServices.getSingleCourse);
 
 CourseRouter.patch("/:id", validateRequest(updateCourseValidationSchema), CourseControllers.updateCourse);
 
-CourseRouter.delete("/:id",CourseControllers.deleteCourse);
+CourseRouter.delete("/:id", CourseControllers.deleteCourse);
+
+CourseRouter.put("/:id/assign-faculties",validateRequest(facultiesWithCourseValidationSchema),CourseControllers.assignFacultiesToACourse);
 
 export default CourseRouter;
