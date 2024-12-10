@@ -20,4 +20,10 @@ export class UserControllers {
         const result = await UserServices.createFacultyMemberIntoDb(password, facultyMember);
         sendResponse(res,201,true, "Faculty is created successfully", result);
     });
+
+    static createAdmin = catchAsync(async (req, res) => {
+        const { password, admin } = req.body;
+        const result = await UserServices.createAdmin(password, admin);
+        sendResponse(res,201,true,"Admin is created successfully",result);
+    });
 }
