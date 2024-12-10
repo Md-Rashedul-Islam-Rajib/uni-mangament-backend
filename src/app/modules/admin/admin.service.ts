@@ -1,7 +1,9 @@
+import { startSession } from "mongoose";
 import QueryBuilder from "../../builder/queryBuilder";
 import { AdminSearchableFields } from "./admin.constant";
 import { AdminModel } from "./admin.model";
 import { TAdmin } from "./admin.types";
+import { UserModel } from "../user/user.model";
 
 export class AdminServices {
 
@@ -41,6 +43,48 @@ export class AdminServices {
 
         const result = await AdminModel.findByIdAndUpdate({ id }, modifiedUpdatedData, { new: true, runValidators: true });
         return result;
+    }
+
+    static async deleteAdmin(id: string) {
+        
+        const session = await startSession();
+        session.startTransaction();
+
+        try {
+            const deletedAdmin = await AdminModel.findByIdAndUpdate(
+                id,
+                { isDeleted: true },
+                {new:true, session}
+            );
+
+            if (!deletedAdmin) {
+                throw new Error("failed to delete admin");
+            }
+
+            const userId = deletedAdmin.user;
+
+            const deletedUser = await UserModel.findOneAndUpdate(
+                userId,
+                { isDeleted: true },
+                {new: true, session}
+            );
+
+            if (!deletedUser) {
+                throw new Error("failed to delete user");
+            }
+            await session.commitTransaction();
+            await session.endSession();
+            return deletedAdmin;
+        } catch (error) {
+            await session.abortTransaction();
+            await session.endSession();
+            throw error;
+        }
 
     }
+
+
+
+
+
 }
