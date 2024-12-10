@@ -16,6 +16,8 @@ CourseRouter.patch("/:id", validateRequest(updateCourseValidationSchema), Course
 
 CourseRouter.delete("/:id", CourseControllers.deleteCourse);
 
-CourseRouter.put("/:id/assign-faculties",validateRequest(facultiesWithCourseValidationSchema),CourseControllers.assignFacultiesToACourse);
+CourseRouter.put("/:id/assign-faculties", validateRequest(facultiesWithCourseValidationSchema), CourseControllers.assignFacultiesToACourse);
+
+CourseRouter.delete("/:id/remove-faculties",validateRequest(facultiesWithCourseValidationSchema),CourseControllers.removeFacultiesFromCourse);
 
 export default CourseRouter;
