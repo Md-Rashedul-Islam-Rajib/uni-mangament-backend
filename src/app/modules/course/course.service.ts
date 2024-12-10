@@ -26,10 +26,7 @@ export class CourseServices {
     };
 
 
-    static async getSingleCourse(id: string) {
-        const result = await CourseModel.findById(id).populate("preRequisiteCourses.course");
-        return result;
-    };
+    
 
 
 
