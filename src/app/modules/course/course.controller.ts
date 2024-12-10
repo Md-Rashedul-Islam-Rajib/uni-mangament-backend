@@ -44,7 +44,10 @@ export class CourseControllers {
     });
 
 
-
+    static removeFacultiesFromCourse = catchAsync(async (req, res) => {
+        const result = await CourseServices.removeFacultiesFromCourse(req.params.id, req.body);
+        sendResponse(res,200,true,"Faculties removed successfully",result);
+    });
 
 
 
