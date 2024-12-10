@@ -9,6 +9,7 @@ import { DepartmentModel } from '../department/dept.model';
 import mongoose, { startSession } from 'mongoose';
 import { TFacultyMember } from '../facultyMember/member.types';
 import { FacultyMemberModel } from '../facultyMember/member.model';
+import { TAdmin } from '../admin/admin.types';
 
 export class UserServices {
     static async createStudentIntoDB(password: string, payload: TStudent) {
@@ -113,5 +114,25 @@ export class UserServices {
         await session.endSession();
         throw error;
     }
-}
+    }
+    
+    static async createAdmin(password: string, payload: TAdmin) {
+        const userData: Partial<TUser> = {};
+
+        userData.password = password || (config.default_password);
+        
+
+        userData.role = "admin";
+
+        const session = await startSession();
+        session.startTransaction();
+
+
+        try {
+            userData.id = await 
+        } catch (error) {
+            
+        }
+    
+    };
 }

@@ -3,6 +3,8 @@ import { TDepartment } from '../department/dept.types';
 import { TSemester } from '../semester/semester.types';
 import { StudentModel } from '../student/student.model';
 import { FacultyMemberModel } from '../facultyMember/member.model';
+import { AdminModel } from '../admin/admin.model';
+import { TAdmin } from '../admin/admin.types';
 
 const findLastStudentId = async (
     semesterId: ObjectId,
@@ -54,3 +56,26 @@ export const generateFacultyMemberID = async (
 
     return `F-${incrementedId}`;
 };
+
+
+const findLastAdminId = async (adminId: Types.ObjectId) => {
+    const lastAdmin = await AdminModel.findOne({ user: adminId })
+        .sort({ id: -1 }) // Sort by ID in descending order
+        .select('id') // Select only the ID field
+        .lean();
+    
+    const lastId = lastAdmin?.id ?
+        parseInt(lastAdmin.id.split("-")[1], 10)
+        : 0;
+    
+    return lastId;
+
+};
+
+    export const generateAdminId = async (payload: TAdmin & Document) => {
+        const lastId = await findLastAdminId(payload._id as Types.ObjectId);
+
+        const incrementedId = (lastId + 1).toString().padStart(4, '0');
+        
+        return `A-${incrementedId}`;
+    };
