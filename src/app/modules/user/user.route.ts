@@ -16,7 +16,7 @@ UserRouter.post(
 
 UserRouter.post('/create-faculty-member',validateRequest(createFacultyMemberValidationSchema),UserControllers.createFacultyMember);
 
-UserRouter.post('/create-admin',validateRequest(createAdminValidationSchema),UserControllers.createA);
+UserRouter.post('/create-admin',validateRequest(createAdminValidationSchema),UserControllers.createAdmin);
 
 
 export default UserRouter;
