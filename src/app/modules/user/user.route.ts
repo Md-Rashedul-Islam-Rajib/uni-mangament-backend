@@ -15,4 +15,6 @@ UserRouter.post(
 
 UserRouter.post('/create-faculty-member',validateRequest(createFacultyMemberValidationSchema),UserControllers.createFacultyMember);
 
+
+
 export default UserRouter;
