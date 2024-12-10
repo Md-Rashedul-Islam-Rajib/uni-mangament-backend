@@ -24,6 +24,13 @@ export class AdminControllers {
 
 
 
+    static deleteAdmin = catchAsync(async (req, res) => {
+        const result = await AdminServices.deleteAdmin(req.params.id);
+        sendResponse(res,200,true,"Admin is deleted successfully",result);
+    });
+
+
+
 
 
 
