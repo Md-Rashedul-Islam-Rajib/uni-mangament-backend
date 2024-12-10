@@ -38,6 +38,11 @@ export class CourseControllers {
 
 
 
+    static assignFacultiesToACourse = catchAsync(async (req, res) => {
+        const result = await CourseServices.assignFacultiesToACourse(req.params.id, req.body);
+        sendResponse(res,200,true,"Faculties assigned successfully",result);
+    });
+
 
 
 
