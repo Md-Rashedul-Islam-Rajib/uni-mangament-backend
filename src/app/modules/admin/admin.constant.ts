@@ -1,4 +1,6 @@
-import { TBloodGroup, TGender } from './admin.types';
+import { TBloodGroup } from "./admin.types";
+import { TGender } from "./admin.types";
+
 
 export const Gender: TGender[] = ['male', 'female', 'other'];
 
