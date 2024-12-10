@@ -11,4 +11,8 @@ AdminRouter.get('/:id' , AdminControllers.getSingleAdmin);
 
 AdminRouter.patch('/:id',validateRequest(updateAdminValidationSchema),AdminControllers.updateAdmin);
 
+AdminRouter.delete('/:id',AdminControllers.deleteAdmin);
+
+
+
 export default AdminRouter;
