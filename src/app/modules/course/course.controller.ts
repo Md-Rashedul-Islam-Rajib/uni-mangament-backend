@@ -8,11 +8,19 @@ export class CourseControllers {
         sendResponse(res, 201, true, "Course is created successfully", result);
     });
 
+
+
     static getAllCourses = catchAsync(async (req, res) => {
         const result = await CourseServices.getAllCourse(req.query);
         sendResponse(res,200,true,"Courses are retrieved successfully", result);
     });
 
+
+
+    static getSingleCourse = catchAsync(async (req, res) => {
+        const result = await CourseServices.getSingleCourse(req.params.id);
+        sendResponse(res,200,true,"Course is retrieved successfully", result);
+    });
 
 
 
