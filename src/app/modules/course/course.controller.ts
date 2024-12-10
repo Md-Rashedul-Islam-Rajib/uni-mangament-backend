@@ -31,6 +31,12 @@ export class CourseControllers {
 
 
 
+    static deleteCourse = catchAsync(async (req, res) => {
+        const result = await CourseServices.deleteCourse(req.params.id);
+        sendResponse(res,200,true,"Course is deleted successfully" ,result);
+    });
+
+
 
 
 
