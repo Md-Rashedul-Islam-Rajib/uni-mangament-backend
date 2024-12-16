@@ -16,7 +16,7 @@ export class OfferedCourseServices {
             endTime,
         } = payload;
 
-        const isRegSemesterExists = await Seme
+        const isRegSemesterExists = await Seme;
 
 
     };
