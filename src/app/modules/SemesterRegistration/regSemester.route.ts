@@ -1,6 +1,6 @@
 import { Router } from "express";
 import validateRequest from "../../middlewares/validateRequest";
-import { createRegSemesterValidationSchema } from "./regSemester.zodSchema";
+import { createRegSemesterValidationSchema, upadateRegSemesterValidationSchema } from "./regSemester.zodSchema";
 import { RegSemesterControllers } from "./regSemester.controller";
 
 const RegSemesterRouter: Router = Router();
@@ -11,6 +11,8 @@ RegSemesterRouter.post('/create-semester-registration', validateRequest(createRe
 RegSemesterRouter.get('/',RegSemesterControllers.getAllRegSemester);
 
 RegSemesterRouter.get('/:id', RegSemesterControllers.getSingleRegSemester);
+
+RegSemesterRouter.patch('/:id',validateRequest(upadateRegSemesterValidationSchema),RegSemesterControllers.updateRegSemester);
 
 
 export default RegSemesterRouter;
