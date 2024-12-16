@@ -1,3 +1,4 @@
+import QueryBuilder from "../../builder/queryBuilder";
 import { SemesterModel } from "../semester/semester.model";
 import { RegistrationStatus } from "./regSemester.constant";
 import { RegSemesterModel } from "./regSemester.model";
@@ -35,13 +36,18 @@ export class RegSemesterServices {
         const result = await RegSemesterModel.create(payload);
         return result;
 
-
-
-
-
     };
 
 
+    static async getAllRegSemesters(query: Record<string, unknown>) {
+        const regSemesterQuery = new QueryBuilder(RegSemesterModel.find().populate('semester'), query)
+            .filter()
+            .sort()
+            .paginate()
+            .fields();
+        const result = await regSemesterQuery.getQuery;
+        return result;
+    };
 
 
 
