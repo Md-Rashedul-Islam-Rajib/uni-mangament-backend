@@ -49,7 +49,10 @@ export class RegSemesterServices {
         return result;
     };
 
-
+    static async getSingleRegSemester(id: string) {
+        const result = await RegSemesterModel.findById(id);
+        return result;
+    };
 
 
 
