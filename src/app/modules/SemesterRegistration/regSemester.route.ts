@@ -14,5 +14,6 @@ RegSemesterRouter.get('/:id', RegSemesterControllers.getSingleRegSemester);
 
 RegSemesterRouter.patch('/:id',validateRequest(upadateRegSemesterValidationSchema),RegSemesterControllers.updateRegSemester);
 
+RegSemesterRouter.delete('/:id', RegSemesterControllers.deleteRegSemester);
 
 export default RegSemesterRouter;
