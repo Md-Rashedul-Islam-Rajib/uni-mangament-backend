@@ -19,4 +19,9 @@ export class RegSemesterControllers {
         sendResponse(res,200,true,'Semester Registration is retrieved successfully',result);
     });
 
+    static updateRegSemester = catchAsync(async (req, res) => {
+        const result = await RegSemesterServices.updateRegSemester(req.params.id, req.body);
+        sendResponse(res, 200, true,"Semester registration is updated successfully",result);
+    });
+
 }
