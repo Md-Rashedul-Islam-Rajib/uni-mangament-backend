@@ -1,7 +1,7 @@
 import { Types } from 'mongoose';
 
 export type TRegSemester = {
-    academicSemester: Types.ObjectId;
+    semester: Types.ObjectId;
     status: 'UPCOMING' | 'ONGOING' | 'ENDED';
     startDate: Date;
     endDate: Date;

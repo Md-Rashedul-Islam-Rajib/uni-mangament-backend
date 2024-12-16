@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { SemesterRegistrationStatus } from "./regSemester.constant";
 
-export const createSemesterRegistrationValidationSchema = z.object({
+export const createRegSemesterValidationSchema = z.object({
         academicSemester: z.string(),
         status: z.enum([
             ...(SemesterRegistrationStatus as [string, ...string[]]),
@@ -12,7 +12,7 @@ export const createSemesterRegistrationValidationSchema = z.object({
         maxCredit: z.number(),
 });
 
-const upadateSemesterRegistrationValidationSchema = z.object({
+export const upadateRegSemesterValidationSchema = z.object({
         academicSemester: z.string().optional(),
         status: z
             .enum([...(SemesterRegistrationStatus as [string, ...string[]])])
