@@ -24,4 +24,9 @@ export class RegSemesterControllers {
         sendResponse(res, 200, true,"Semester registration is updated successfully",result);
     });
 
+    static deleteRegSemester = catchAsync(async (req, res) => {
+        const result = await RegSemesterServices.deleteRegSemester(req.params.id);
+        sendResponse(res,200,true,"Semester registration is deleted successfully");
+    });
+
 }
