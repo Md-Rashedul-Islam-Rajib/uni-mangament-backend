@@ -10,5 +10,7 @@ RegSemesterRouter.post('/create-semester-registration', validateRequest(createRe
 
 RegSemesterRouter.get('/',RegSemesterControllers.getAllRegSemester);
 
+RegSemesterRouter.get('/:id', RegSemesterControllers.getSingleRegSemester);
+
 
 export default RegSemesterRouter;
