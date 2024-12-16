@@ -1,0 +1,12 @@
+import { Router } from "express";
+import validateRequest from "../../middlewares/validateRequest";
+import { createRegSemesterValidationSchema } from "./regSemester.zodSchema";
+import { RegSemesterControllers } from "./regSemester.controller";
+
+const RegSemesterRouter: Router = Router();
+
+RegSemesterRouter.post('/create-semester-registration', validateRequest(createRegSemesterValidationSchema),
+RegSemesterControllers.createRegSemester);
+
+
+export default RegSemesterRouter;
