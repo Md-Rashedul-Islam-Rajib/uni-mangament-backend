@@ -6,7 +6,9 @@ import { RegSemesterControllers } from "./regSemester.controller";
 const RegSemesterRouter: Router = Router();
 
 RegSemesterRouter.post('/create-semester-registration', validateRequest(createRegSemesterValidationSchema),
-RegSemesterControllers.createRegSemester);
+    RegSemesterControllers.createRegSemester);
+
+RegSemesterRouter.get('/',RegSemesterControllers.getAllRegSemester);
 
 
 export default RegSemesterRouter;
