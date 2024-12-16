@@ -4,7 +4,11 @@ import { StudentModel } from '../student/student.model';
 import { TStudent } from '../student/student.types';
 import { UserModel } from './user.model';
 import { TUser } from './user.types';
-import { generateAdminId, generateFacultyMemberID, generateStudentId } from './user.utilities';
+import {
+    generateAdminId,
+    generateFacultyMemberID,
+    generateStudentId,
+} from './user.utilities';
 import { DepartmentModel } from '../department/dept.model';
 import mongoose, { startSession } from 'mongoose';
 import { TFacultyMember } from '../facultyMember/member.types';
@@ -44,24 +48,24 @@ export class UserServices {
         }
 
         const session = await mongoose.startSession();
-            
-            session.startTransaction();
 
-        
+        session.startTransaction();
 
         try {
             // setting id
             userData.id = await generateStudentId(semester, department);
             // creating user
-            const newUser = await UserModel.create([userData],{session});
+            const newUser = await UserModel.create([userData], { session });
 
             // creating a student
             if (newUser.length) {
                 payload.id = newUser[0]?.id;
                 payload.user = newUser[0]?._id;
             }
-            const newStudent = await StudentModel.create([payload],{session});
-            
+            const newStudent = await StudentModel.create([payload], {
+                session,
+            });
+
             await session.commitTransaction();
             session.endSession();
 
@@ -73,84 +77,89 @@ export class UserServices {
         }
     }
 
-    static async createFacultyMemberIntoDb(password: string, payload: TFacultyMember) {
+    static async createFacultyMemberIntoDb(
+        password: string,
+        payload: TFacultyMember,
+    ) {
         const userData: Partial<TUser> = {};
-        
+
         userData.password = password || config.default_password;
 
-        userData.role = "faculty";
+        userData.role = 'faculty';
 
-        const department = await DepartmentModel.findById(payload.academicDepartment);
-        
-        if(!department){
-            throw new Error("department is not found");
-    };
+        const department = await DepartmentModel.findById(
+            payload.academicDepartment,
+        );
 
-    const session = await startSession();
+        if (!department) {
+            throw new Error('department is not found');
+        }
+
+        const session = await startSession();
         session.startTransaction();
-    try {
-        
-        userData.id = await generateFacultyMemberID(department);
+        try {
+            userData.id = await generateFacultyMemberID(department);
 
-        const newUser = await UserModel.create([userData], { session });
-        
-        if (!newUser.length) {
-            throw new Error("Failed to create user");
+            const newUser = await UserModel.create([userData], { session });
+
+            if (!newUser.length) {
+                throw new Error('Failed to create user');
+            }
+
+            payload.id = newUser[0].id;
+            payload.user = newUser[0]._id;
+
+            const newFacultyMember = await FacultyMemberModel.create(
+                [payload],
+                { session },
+            );
+
+            if (!newFacultyMember) {
+                throw new Error('Failed to create faculty');
+            }
+
+            await session.commitTransaction();
+            await session.endSession();
+            return newFacultyMember;
+        } catch (error) {
+            await session.abortTransaction();
+            await session.endSession();
+            throw error;
         }
-
-        payload.id = newUser[0].id;
-        payload.user = newUser[0]._id;
-
-        const newFacultyMember = await FacultyMemberModel.create([payload], { session });
-
-        if (!newFacultyMember) {
-            throw new Error("Failed to create faculty");
-        }
-
-        await session.commitTransaction();
-        await session.endSession();
-        return newFacultyMember;
-    } catch (error) {
-        await session.abortTransaction();
-        await session.endSession();
-        throw error;
     }
-    }
-    
+
     static async createAdmin(password: string, payload: TAdmin) {
         const userData: Partial<TUser> = {};
 
-        userData.password = password || (config.default_password);
-        
+        userData.password = password || config.default_password;
 
-        userData.role = "admin";
+        userData.role = 'admin';
 
         const admin = await AdminModel.findOne(payload.user);
 
         if (!admin) {
-            throw new Error("admin is not found");
+            throw new Error('admin is not found');
         }
 
         const session = await startSession();
         session.startTransaction();
 
-
         try {
             userData.id = await generateAdminId(admin);
 
             const newUser = await UserModel.create([userData], { session });
-            
+
             if (!newUser.length) {
-                throw new Error("failed to create user");
+                throw new Error('failed to create user');
             }
 
             payload.id = newUser[0].id;
             payload.user = newUser[0]._id;
-            
+
             const newAdmin = await AdminModel.create([payload], { session });
-            
+
             if (!newAdmin) {
-                throw new Error("failed to create admin");
+                throw new Error('failed to create admin');
             }
 
             await session.commitTransaction();
@@ -161,6 +170,5 @@ export class UserServices {
             await session.endSession();
             throw error;
         }
-    
-    };
+    }
 }

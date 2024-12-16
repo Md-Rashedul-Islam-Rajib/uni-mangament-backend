@@ -1,8 +1,8 @@
-import { FacultyModel } from "./faculty.model";
-import { TFaculty } from "./faculty.types";
+import { FacultyModel } from './faculty.model';
+import { TFaculty } from './faculty.types';
 
 export class FacultyServices {
-    static async createFaculty(payload:TFaculty) {
+    static async createFaculty(payload: TFaculty) {
         const result = await FacultyModel.create(payload);
         return result;
     }
@@ -17,7 +17,11 @@ export class FacultyServices {
         return result;
     }
     static async updateFaculty(id: string, payload: Partial<TFaculty>) {
-        const result = await FacultyModel.findByIdAndUpdate({ _id: id }, payload, { new: true });
+        const result = await FacultyModel.findByIdAndUpdate(
+            { _id: id },
+            payload,
+            { new: true },
+        );
         return result;
     }
 }

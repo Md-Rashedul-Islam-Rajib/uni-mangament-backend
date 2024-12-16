@@ -94,12 +94,12 @@ const adminSchema = new Schema<TAdmin, Admin>(
 
 // generating full name
 adminSchema.virtual('fullName').get(function () {
-   const name = this?.name as TUserName | undefined;
+    const name = this?.name as TUserName | undefined;
 
-   if (!name) return '';
+    if (!name) return '';
 
-   const { firstName = '', middleName = '', lastName = '' } = name;
-   return `${firstName} ${middleName} ${lastName}`.trim();
+    const { firstName = '', middleName = '', lastName = '' } = name;
+    return `${firstName} ${middleName} ${lastName}`.trim();
 });
 
 // filter out deleted documents

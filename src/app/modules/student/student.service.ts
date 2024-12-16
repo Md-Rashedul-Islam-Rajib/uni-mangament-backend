@@ -5,7 +5,7 @@ import QueryBuilder from '../../builder/queryBuilder';
 import { studentSearchableFields } from './student.constants';
 
 export class StudentServices {
-    static async getAllStudentsFromDB(query: Record<string,unknown>) {
+    static async getAllStudentsFromDB(query: Record<string, unknown>) {
         const studentQuery = new QueryBuilder(
             StudentModel.find()
                 .populate('admissionSemester')
@@ -40,26 +40,24 @@ export class StudentServices {
     }
 
     static async deleteStudentFromDB(id: string) {
-
         const session = await mongoose.startSession();
         session.startTransaction();
         try {
-            
             const deletedStudent = await StudentModel.findOneAndUpdate(
                 { id },
                 { isDeleted: true },
-                {new:true,session}
+                { new: true, session },
             );
             if (!deletedStudent) {
-                throw new Error("failed to delete student");
+                throw new Error('failed to delete student');
             }
             const deletedUser = await UserModel.findOneAndUpdate(
                 { id },
                 { isDeleted: true },
-                {new:true,session}
+                { new: true, session },
             );
             if (!deletedUser) {
-                throw new Error("failed to delete user");
+                throw new Error('failed to delete user');
             }
 
             await session.commitTransaction();

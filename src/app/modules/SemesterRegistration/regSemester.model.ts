@@ -1,6 +1,6 @@
-import mongoose, { Schema } from "mongoose";
-import { TRegSemester } from "./regSemester.types";
-import { SemesterRegistrationStatus } from "./regSemester.constant";
+import mongoose, { Schema } from 'mongoose';
+import { TRegSemester } from './regSemester.types';
+import { SemesterRegistrationStatus } from './regSemester.constant';
 
 const regSemesterSchema = new mongoose.Schema<TRegSemester>(
     {

@@ -1,9 +1,9 @@
-import { startSession } from "mongoose";
-import QueryBuilder from "../../builder/queryBuilder";
-import { FacultySearchableFields } from "./member.constant";
-import { TFacultyMember } from "./member.types";
-import { FacultyMemberModel } from "./member.model";
-import { UserModel } from "../user/user.model";
+import { startSession } from 'mongoose';
+import QueryBuilder from '../../builder/queryBuilder';
+import { FacultySearchableFields } from './member.constant';
+import { TFacultyMember } from './member.types';
+import { FacultyMemberModel } from './member.model';
+import { UserModel } from '../user/user.model';
 
 export class FacultymemberServices {
     static async getAllFacultyMembers(query: Record<string, unknown>) {
@@ -19,17 +19,21 @@ export class FacultymemberServices {
 
         const result = facultyQuery.getQuery;
         return result;
-
     }
 
-    static async getSingleFacultyMember(id:string) {
+    static async getSingleFacultyMember(id: string) {
         const result =
-            await FacultyMemberModel.findById(id).populate('academicDepartment');
+            await FacultyMemberModel.findById(id).populate(
+                'academicDepartment',
+            );
 
         return result;
     }
 
-    static async updateFacultyMember(id: string, payload: Partial<TFacultyMember>) {
+    static async updateFacultyMember(
+        id: string,
+        payload: Partial<TFacultyMember>,
+    ) {
         const { name, ...remainingFacultyData } = payload;
 
         // Prepare the update object
@@ -58,31 +62,33 @@ export class FacultymemberServices {
         return result;
     }
 
-    static async deleteFacultyMember (id:string) {
+    static async deleteFacultyMember(id: string) {
         const session = await startSession();
 
         try {
             session.abortTransaction();
-            
-            const deletedFacultyMember = await FacultyMemberModel.findByIdAndUpdate(
-                id, {isDeleted : true}, {new: true, session}
-            );
+
+            const deletedFacultyMember =
+                await FacultyMemberModel.findByIdAndUpdate(
+                    id,
+                    { isDeleted: true },
+                    { new: true, session },
+                );
 
             if (!deletedFacultyMember) {
-                throw new Error("Failed to delete faculty");
+                throw new Error('Failed to delete faculty');
             }
 
             const userId = deletedFacultyMember.user;
 
             const deletedFacultyUser = await UserModel.findByIdAndUpdate(
-
                 userId,
                 { isDeleted: true },
-                {new : true, session}
+                { new: true, session },
             );
 
             if (!deletedFacultyUser) {
-                throw new Error("Failed to delete faculty user");
+                throw new Error('Failed to delete faculty user');
             }
             await session.commitTransaction();
             await session.endSession();

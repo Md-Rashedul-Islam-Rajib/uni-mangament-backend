@@ -1,9 +1,5 @@
-import { z } from "zod";
-import { Days } from "./offeredCourses.constant";
-
-
-
-
+import { z } from 'zod';
+import { Days } from './offeredCourses.constant';
 
 const timeStringSchema = z.string().refine(
     (time) => {
@@ -14,7 +10,6 @@ const timeStringSchema = z.string().refine(
         message: 'Invalid time format , expected "HH:MM" in 24 hours format',
     },
 );
-
 
 export const createOfferedCourseValidationSchema = z
     .object({

@@ -1,4 +1,4 @@
-import { FilterQuery, Query } from "mongoose";
+import { FilterQuery, Query } from 'mongoose';
 
 class QueryBuilder<T> {
     private modelQuery: Query<T[], T>;
@@ -70,8 +70,5 @@ class QueryBuilder<T> {
         return this.modelQuery;
     }
 }
-
-
-
 
 export default QueryBuilder;

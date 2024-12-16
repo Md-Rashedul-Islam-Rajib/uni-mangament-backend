@@ -13,37 +13,36 @@ const router: Router = Router();
 const allRoutes = [
     {
         path: '/students',
-        route: StudentRouter
+        route: StudentRouter,
     },
     {
         path: '/users',
-        route: UserRouter
+        route: UserRouter,
     },
     {
-        path: "/semesters",
-        route: SemesterRouter
+        path: '/semesters',
+        route: SemesterRouter,
     },
     {
-        path: "/faculties",
-        route: FacultyRouter
+        path: '/faculties',
+        route: FacultyRouter,
     },
     {
-        path: "/departments",
-        route: DepartmentRouter
+        path: '/departments',
+        route: DepartmentRouter,
     },
     {
-        path: "/faculty-members",
-        route : FacultyMemberRouter
+        path: '/faculty-members',
+        route: FacultyMemberRouter,
     },
     {
-        path: "/admins",
-        route: AdminRouter
-
+        path: '/admins',
+        route: AdminRouter,
     },
     {
-        path: "/courses",
-        route: CourseRouter
-    }
+        path: '/courses',
+        route: CourseRouter,
+    },
 ];
 
 allRoutes.forEach((singleRoute) =>

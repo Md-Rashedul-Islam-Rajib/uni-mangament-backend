@@ -17,13 +17,16 @@ export class UserControllers {
 
     static createFacultyMember = catchAsync(async (req, res) => {
         const { password, facultyMember } = req.body;
-        const result = await UserServices.createFacultyMemberIntoDb(password, facultyMember);
-        sendResponse(res,201,true, "Faculty is created successfully", result);
+        const result = await UserServices.createFacultyMemberIntoDb(
+            password,
+            facultyMember,
+        );
+        sendResponse(res, 201, true, 'Faculty is created successfully', result);
     });
 
     static createAdmin = catchAsync(async (req, res) => {
         const { password, admin } = req.body;
         const result = await UserServices.createAdmin(password, admin);
-        sendResponse(res,201,true,"Admin is created successfully",result);
+        sendResponse(res, 201, true, 'Admin is created successfully', result);
     });
 }

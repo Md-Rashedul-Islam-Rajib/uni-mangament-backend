@@ -13,10 +13,16 @@ UserRouter.post(
     UserControllers.createStudent,
 );
 
+UserRouter.post(
+    '/create-faculty-member',
+    validateRequest(createFacultyMemberValidationSchema),
+    UserControllers.createFacultyMember,
+);
 
-UserRouter.post('/create-faculty-member',validateRequest(createFacultyMemberValidationSchema),UserControllers.createFacultyMember);
-
-UserRouter.post('/create-admin',validateRequest(createAdminValidationSchema),UserControllers.createAdmin);
-
+UserRouter.post(
+    '/create-admin',
+    validateRequest(createAdminValidationSchema),
+    UserControllers.createAdmin,
+);
 
 export default UserRouter;

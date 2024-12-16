@@ -1,4 +1,4 @@
-import { TBloodGroup, TGender } from "./member.types";
+import { TBloodGroup, TGender } from './member.types';
 
 export const Gender: TGender[] = ['male', 'female', 'other'];
 

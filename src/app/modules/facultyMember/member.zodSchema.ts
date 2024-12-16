@@ -1,5 +1,5 @@
-import { z } from "zod";
-import { BloodGroup, Gender } from "./member.constant";
+import { z } from 'zod';
+import { BloodGroup, Gender } from './member.constant';
 
 export const createFacultyMemberNameValidationSchema = z.object({
     firstName: z

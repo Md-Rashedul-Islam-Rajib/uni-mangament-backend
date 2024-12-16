@@ -1,9 +1,7 @@
-import { TOfferedCourse } from "./offeredCourse.types";
+import { TOfferedCourse } from './offeredCourse.types';
 
 export class OfferedCourseServices {
-
     static async createOfferedCourse(payload: TOfferedCourse) {
-        
         const {
             semesterRegistration,
             academicFaculty,
@@ -17,20 +15,5 @@ export class OfferedCourseServices {
         } = payload;
 
         const isRegSemesterExists = await Seme;
-
-
-    };
-
-
-
-
-
-
-
-
-
-
-
-
-
+    }
 }

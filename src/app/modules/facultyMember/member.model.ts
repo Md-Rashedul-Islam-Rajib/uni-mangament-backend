@@ -1,6 +1,6 @@
-import { model, Schema } from "mongoose";
-import { Faculty, TFacultyMember, TUserName } from "./member.types";
-import { BloodGroup, Gender } from "./member.constant";
+import { model, Schema } from 'mongoose';
+import { Faculty, TFacultyMember, TUserName } from './member.types';
+import { BloodGroup, Gender } from './member.constant';
 
 const userNameSchema = new Schema<TUserName>({
     firstName: {
@@ -97,7 +97,6 @@ const facultySchema = new Schema<TFacultyMember, Faculty>(
     },
 );
 
-
 // generating full name
 facultySchema.virtual('fullName').get(function () {
     return (
@@ -131,4 +130,7 @@ facultySchema.statics.isUserExists = async function (id: string) {
     return existingUser;
 };
 
-export const FacultyMemberModel = model<TFacultyMember, Faculty>('Faculty', facultySchema);
+export const FacultyMemberModel = model<TFacultyMember, Faculty>(
+    'Faculty',
+    facultySchema,
+);

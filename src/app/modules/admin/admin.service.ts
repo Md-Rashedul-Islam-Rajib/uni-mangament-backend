@@ -1,12 +1,11 @@
-import { startSession } from "mongoose";
-import QueryBuilder from "../../builder/queryBuilder";
-import { AdminSearchableFields } from "./admin.constant";
-import { AdminModel } from "./admin.model";
-import { TAdmin } from "./admin.types";
-import { UserModel } from "../user/user.model";
+import { startSession } from 'mongoose';
+import QueryBuilder from '../../builder/queryBuilder';
+import { AdminSearchableFields } from './admin.constant';
+import { AdminModel } from './admin.model';
+import { TAdmin } from './admin.types';
+import { UserModel } from '../user/user.model';
 
 export class AdminServices {
-
     static async getAllAdmin(query: Record<string, unknown>) {
         const adminQuery = new QueryBuilder(AdminModel.find(), query)
             .search(AdminSearchableFields)
@@ -19,11 +18,10 @@ export class AdminServices {
         return result;
     }
 
-
     static async getSingleAdmin(id: string) {
         const result = await AdminModel.findById(id);
         return result;
-    };
+    }
 
     static async updateAdmin(id: string, payload: Partial<TAdmin>) {
         const { name, ...remainingAdminData } = payload;
@@ -39,14 +37,16 @@ export class AdminServices {
                     {},
                 )),
         };
-        
 
-        const result = await AdminModel.findByIdAndUpdate({ id }, modifiedUpdatedData, { new: true, runValidators: true });
+        const result = await AdminModel.findByIdAndUpdate(
+            { id },
+            modifiedUpdatedData,
+            { new: true, runValidators: true },
+        );
         return result;
     }
 
     static async deleteAdmin(id: string) {
-        
         const session = await startSession();
         session.startTransaction();
 
@@ -54,11 +54,11 @@ export class AdminServices {
             const deletedAdmin = await AdminModel.findByIdAndUpdate(
                 id,
                 { isDeleted: true },
-                {new:true, session}
+                { new: true, session },
             );
 
             if (!deletedAdmin) {
-                throw new Error("failed to delete admin");
+                throw new Error('failed to delete admin');
             }
 
             const userId = deletedAdmin.user;
@@ -66,11 +66,11 @@ export class AdminServices {
             const deletedUser = await UserModel.findOneAndUpdate(
                 userId,
                 { isDeleted: true },
-                {new: true, session}
+                { new: true, session },
             );
 
             if (!deletedUser) {
-                throw new Error("failed to delete user");
+                throw new Error('failed to delete user');
             }
             await session.commitTransaction();
             await session.endSession();
@@ -80,11 +80,5 @@ export class AdminServices {
             await session.endSession();
             throw error;
         }
-
     }
-
-
-
-
-
 }
