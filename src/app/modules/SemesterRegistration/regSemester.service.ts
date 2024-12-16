@@ -54,6 +54,47 @@ export class RegSemesterServices {
         return result;
     };
 
+    static async updateRegSemester(id: string, payload: Partial<TRegSemester>) {
+        const isRegSemesterExists = await RegSemesterModel.findById(id);
+
+
+        if (!isRegSemesterExists) {
+            throw new Error('This semester is found');
+        }
+
+
+        const currentSemesterStatus = isRegSemesterExists?.status;
+        const requestedStatus = payload?.status;
+
+
+        if (currentSemesterStatus === RegistrationStatus.ENDED) {
+            throw new Error(`This semester is already ${currentSemesterStatus}`);
+        }
+
+
+        if (currentSemesterStatus === RegistrationStatus.UPCOMING
+            &&
+            requestedStatus=== RegistrationStatus.ENDED
+        ) {
+            throw new Error(`you can not change status from ${currentSemesterStatus} to ${requestedStatus}`);
+        }
+
+
+
+        if (currentSemesterStatus === RegistrationStatus.ONGOING
+            &&
+            requestedStatus=== RegistrationStatus.UPCOMING
+        ) {
+            throw new Error(`you can not change status from ${currentSemesterStatus} to ${requestedStatus}`);
+        }
+
+
+        const result = await RegSemesterModel.findByIdAndUpdate(id, payload, {
+            new: true, runValidators: true
+        });
+        return result;
+
+    };
 
 
 
