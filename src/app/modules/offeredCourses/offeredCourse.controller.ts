@@ -18,4 +18,10 @@ export class OfferedCourseControllers {
         const result = await OfferedCourseServices.getSingleOfferedCourse(req.params.id);
         sendResponse(res, 200, true, "offered course retrieved successfully", result);
     });
+
+    static updateOfferedCourse = catchAsync(async (req, res) => {
+        const result = await OfferedCourseServices.updateOfferedCourse(req.params.id, req.body);
+        sendResponse(res,200,true,"offered course updated successfully",result);
+    });
+
 }
