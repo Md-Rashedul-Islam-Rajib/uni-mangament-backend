@@ -24,4 +24,9 @@ export class OfferedCourseControllers {
         sendResponse(res,200,true,"offered course updated successfully",result);
     });
 
+    static deleteOfferedCourse = catchAsync(async (req, res) => {
+        const result = await OfferedCourseServices.deleteOfferedCourse(req.params.id);
+        sendResponse(res,200,true,'offered course deleted successfully', result);
+    });
+
 }
