@@ -11,6 +11,8 @@ OfferedCourseRouter.get('/', OfferedCourseControllers.getAllOfferedCourse);
 
 OfferedCourseRouter.get('/:id', OfferedCourseControllers.getSingleOfferedCourse);
 
-OfferedCourseRouter.patch('/:id',validateRequest(updateOfferedCourseValidationSchema),OfferedCourseControllers.updateOfferedCourse);
+OfferedCourseRouter.patch('/:id', validateRequest(updateOfferedCourseValidationSchema), OfferedCourseControllers.updateOfferedCourse);
+
+OfferedCourseRouter.delete("/:id",OfferedCourseControllers.deleteOfferedCourse);
 
 export default OfferedCourseRouter;
