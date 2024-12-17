@@ -189,7 +189,32 @@ export class OfferedCourseServices {
         return result;
     };
 
-    sta
+    static async deleteOfferedCourse(id: string) {
+        const isOfferedCourseExists = await OfferedCourseModel.findById(id);
+
+        if (!isOfferedCourseExists) {
+            throw new Error(
+                'Offered Course not found',
+            );
+        }
+
+        const semesterRegistation = isOfferedCourseExists.semesterRegistration;
+
+        const semesterRegistrationStatus =
+            await RegSemesterModel.findById(semesterRegistation).select(
+                'status',
+            );
+
+        if (semesterRegistrationStatus?.status !== 'UPCOMING') {
+            throw new Error(
+                `Offered course can not update ! because the semester ${semesterRegistrationStatus}`,
+            );
+        }
+
+        const result = await OfferedCourseModel.findByIdAndDelete(id);
+
+        return result;
+    };
 
 
 
