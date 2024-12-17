@@ -9,4 +9,6 @@ OfferedCourseRouter.post('/create-offered-course', validateRequest(createOffered
 
 OfferedCourseRouter.get('/', OfferedCourseControllers.getAllOfferedCourse);
 
+OfferedCourseRouter.get('/:id', OfferedCourseControllers.getSingleOfferedCourse);
+
 export default OfferedCourseRouter;
