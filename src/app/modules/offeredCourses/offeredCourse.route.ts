@@ -5,6 +5,8 @@ import { OfferedCourseControllers } from "./offeredCourse.controller";
 
 const OfferedCourseRouter: Router = Router();
 
-OfferedCourseRouter.post('/create-offered-course',validateRequest(createOfferedCourseValidationSchema),OfferedCourseControllers.createOfferedCourse);
+OfferedCourseRouter.post('/create-offered-course', validateRequest(createOfferedCourseValidationSchema), OfferedCourseControllers.createOfferedCourse);
+
+OfferedCourseRouter
 
 export default OfferedCourseRouter;
