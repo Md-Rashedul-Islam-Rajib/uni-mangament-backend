@@ -119,7 +119,15 @@ export class OfferedCourseServices {
     };
 
 
+    static async getSingleOfferedCourse(id: string) {
+        const offeredCourse = await OfferedCourseModel.findById(id);
 
+        if (!offeredCourse) {
+            throw new Error('Offered Course not found');
+        }
+
+        return offeredCourse;
+    };
 
 
 
