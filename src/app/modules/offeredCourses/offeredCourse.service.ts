@@ -1,3 +1,4 @@
+import QueryBuilder from '../../builder/queryBuilder';
 import { CourseModel } from '../course/course.model';
 import { DepartmentModel } from '../department/dept.model';
 import { FacultyModel } from '../faculty/faculty.model';
@@ -99,8 +100,53 @@ export class OfferedCourseServices {
         const result = await OfferedCourseModel.create({
             ...payload
         });
-
         return result;
-
     }
+
+
+    static async getAllOfferedCourses(query: Record<string, unknown>) {
+        const offeredCourseQuery = new QueryBuilder(
+            OfferedCourseModel.find(),
+            query,
+        )
+            .filter()
+            .sort()
+            .paginate()
+            .fields();
+        
+        const result = offeredCourseQuery.getQuery;
+        return result;
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
