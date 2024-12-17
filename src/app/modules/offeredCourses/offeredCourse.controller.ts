@@ -13,4 +13,9 @@ export class OfferedCourseControllers {
         const result = await OfferedCourseServices.getAllOfferedCourses(req.query);
         sendResponse(res, 200, true, "offered course retrieved successfully", result);
     });
+
+    static getSingleOfferedCourse = catchAsync(async (req, res) => {
+        const result = await OfferedCourseServices.getSingleOfferedCourse(req.params.id);
+        sendResponse(res, 200, true, "offered course retrieved successfully", result);
+    });
 }
