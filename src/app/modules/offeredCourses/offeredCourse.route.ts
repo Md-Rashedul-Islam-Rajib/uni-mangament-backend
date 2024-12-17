@@ -7,6 +7,6 @@ const OfferedCourseRouter: Router = Router();
 
 OfferedCourseRouter.post('/create-offered-course', validateRequest(createOfferedCourseValidationSchema), OfferedCourseControllers.createOfferedCourse);
 
-OfferedCourseRouter
+OfferedCourseRouter.get('/', OfferedCourseControllers.getAllOfferedCourse);
 
 export default OfferedCourseRouter;
