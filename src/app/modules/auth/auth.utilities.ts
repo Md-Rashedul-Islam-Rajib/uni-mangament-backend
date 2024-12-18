@@ -26,5 +26,9 @@ export const preValidatingUser = async (userId:string, iat?: number) => {
         throw new Error('this user is blocked'); 
     }
 
+    if (user.passwordChangedAt && UserModel.isJWTIssuedBeforePasswordChanged(user.passwordChangedAt, iat as number)) {
+        throw new Error('you are not authorized');
+    }
+    return user;
 
 };
