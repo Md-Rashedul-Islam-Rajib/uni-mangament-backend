@@ -9,7 +9,7 @@ const AuthRouter: Router = Router();
 
 AuthRouter.post('/login', validateRequest(loginValidationSchema), AuthControllers.loginUser);
 
-AuthRouter.post('/login', validateRequest(refreshTokenValidationSchema), AuthControllers.refreshToken);
+AuthRouter.post('/refresh-token', validateRequest(refreshTokenValidationSchema), AuthControllers.refreshToken);
 
 AuthRouter.post('/change-password', auth(
     USER_ROLE.admin,
