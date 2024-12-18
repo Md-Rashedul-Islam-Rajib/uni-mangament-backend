@@ -2,6 +2,7 @@ import { JwtPayload } from 'jsonwebtoken';
 import { UserModel } from "../user/user.model";
 import { TLoginUser } from "./auth.types";
 import { createToken, preValidatingUser } from "./auth.utilities";
+import config from '../../config';
 
 export class AuthServices {
 
@@ -14,15 +15,28 @@ export class AuthServices {
             throw new Error('password did not matched');
         }
 
-        const JwtPayload = {
+        const jwtPayload = {
             userId: user?.id,
             role: user?.role
         };
 
         const accessToken = createToken(
-            JwtPayload,
-            conf
+            jwtPayload,
+            config.jwt_access_secret,
+            config.jwt_access_expires_in
         );
+
+        const refreshToken = createToken(
+            jwtPayload,
+            config.jwt_refresh_secret,
+            config.jwt_refresh_expires_in,
+        );
+
+        return {
+            accessToken,
+            refreshToken,
+            needsPasswordChange : user?.needsPasswordChange
+        };
         
     };
 
