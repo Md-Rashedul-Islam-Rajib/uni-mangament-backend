@@ -26,7 +26,11 @@ export class AuthControllers {
         sendResponse(res,200,true,"password changed successfully",result); 
     });
 
-
+    static refreshToken = catchAsync(async (req, res) => {
+        const { refreshToken } = req.cookies;
+        const result = await AuthServices.refreshToken(refreshToken);
+        sendResponse(res,200,true,"access token is renewed successfully",result);
+    });
 
 
 
