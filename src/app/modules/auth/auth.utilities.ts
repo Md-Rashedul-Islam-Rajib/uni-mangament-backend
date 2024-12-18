@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 import { UserModel } from '../user/user.model';
 
 export const createToken = (
@@ -9,6 +9,22 @@ export const createToken = (
     return jwt.sign(jwtPayload, secret, {
         expiresIn,
     });
+};
+
+export const verifyToken = (secret: string, token?: string) => {
+    if (!token) {
+        throw new Error(
+            "You're not authorized"
+        );
+    }
+
+    try {
+        return jwt.verify(token, secret) as JwtPayload;
+    } catch (_error) {
+        throw new Error(
+            'The provided token is invalid or expired'
+        );
+    }
 };
 
 

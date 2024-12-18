@@ -1,7 +1,7 @@
 import { JwtPayload } from 'jsonwebtoken';
 import { UserModel } from "../user/user.model";
 import { TLoginUser } from "./auth.types";
-import { createToken, preValidatingUser } from "./auth.utilities";
+import { createToken, preValidatingUser, verifyToken } from "./auth.utilities";
 import config from '../../config';
 import bcrypt from 'bcrypt';
 
@@ -75,6 +75,24 @@ export class AuthServices {
         return null;
     };
 
+
+    static async refreshToken(token: string) {
+        const decoded = verifyToken(token, config.jwt_refresh_secret);
+        const user = await preValidatingUser(decoded?.userId, decoded?.iat);
+        
+        const jwtPayload = {
+            userId: user.id,
+            role: user.role
+        };
+
+        const accessToken = createToken(
+            jwtPayload,
+            config.jwt_access_secret,
+            config.jwt_access_expires_in
+        );
+
+        return { accessToken };
+    };
 
 
 
