@@ -19,6 +19,12 @@ export class AuthControllers {
     });
 
 
+    static changePassword = catchAsync(async (req, res) => {
+       const { ...passwordData } = req.body;
+
+        const result = await AuthServices.changePassword(req.user, passwordData);
+        sendResponse(res,200,true,"password changed successfully",result); 
+    });
 
 
 
