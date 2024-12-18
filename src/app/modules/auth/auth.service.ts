@@ -3,6 +3,7 @@ import { UserModel } from "../user/user.model";
 import { TLoginUser } from "./auth.types";
 import { createToken, preValidatingUser } from "./auth.utilities";
 import config from '../../config';
+import bcrypt from 'bcrypt';
 
 export class AuthServices {
 
@@ -38,6 +39,40 @@ export class AuthServices {
             needsPasswordChange : user?.needsPasswordChange
         };
         
+    };
+
+    static async changePassword(
+        userData: JwtPayload,
+        payload: {
+            oldPassword: string,
+            newPassword: string
+        }
+    ) {
+        const user = await preValidatingUser(userData.userId);
+
+        const passwordMatched = await UserModel.isPasswordMatched(payload.oldPassword, user?.password);
+        if (!passwordMatched) {
+            throw new Error('password didn\'t matched');
+        }
+
+        const newHashedPassword = await bcrypt.hash(
+            payload.newPassword,
+            Number(config.bcrypt_salt_rounds)
+        );
+
+        await UserModel.findOneAndUpdate(
+            {
+                id: userData.userId,
+                role: userData.role
+            },
+            {
+                password: newHashedPassword,
+                needsPasswordChange: false,
+                passwordChangedAt: new Date()
+            }
+        );
+
+        return null;
     };
 
 
