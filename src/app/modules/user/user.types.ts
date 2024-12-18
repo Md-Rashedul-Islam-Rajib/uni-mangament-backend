@@ -8,6 +8,7 @@ export type TUser = {
     role: 'admin' | 'student' | 'faculty';
     status: 'in-progress' | 'blocked';
     isDeleted: boolean;
+    passwordChangedAt?: Date;
 };
 
 export interface UserStatics extends Model<TUser> {
