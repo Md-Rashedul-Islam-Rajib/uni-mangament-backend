@@ -1,4 +1,5 @@
-import { Model } from "mongoose";
+import { Model } from 'mongoose';
+import { USER_ROLE } from './user.constants';
 
 export type TUser = {
     id: string;
@@ -22,3 +23,5 @@ export interface UserStatics extends Model<TUser> {
         jwtIssuedTimestamp: number,
     ): boolean;
 }
+
+export type TUserRole = keyof typeof USER_ROLE;
