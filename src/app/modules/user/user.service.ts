@@ -32,6 +32,8 @@ export class UserServices {
 
         // setting student role
         userData.role = 'student';
+        userData.email = payload.email;
+
 
         const semester = await SemesterModel.findById(
             payload.admissionSemester,
@@ -86,6 +88,7 @@ export class UserServices {
         userData.password = password || config.default_password;
 
         userData.role = 'faculty';
+        userData.email = payload.email;
 
         const department = await DepartmentModel.findById(
             payload.academicDepartment,
@@ -134,6 +137,7 @@ export class UserServices {
         userData.password = password || config.default_password;
 
         userData.role = 'admin';
+        userData.email = payload.email;
 
         const admin = await AdminModel.findOne(payload.user);
 
