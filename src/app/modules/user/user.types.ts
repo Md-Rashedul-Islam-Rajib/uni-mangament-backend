@@ -3,7 +3,7 @@ import { USER_ROLE } from './user.constants';
 
 export type TUser = {
     id: string;
-    email:string;
+    email: string;
     password: string;
     needsPasswordChange: boolean;
     role: 'admin' | 'student' | 'faculty';
