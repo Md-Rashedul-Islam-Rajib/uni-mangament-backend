@@ -105,11 +105,12 @@ export class RegSemesterServices {
             throw new Error('this registered semester is not found');
         }
 
-
         const regSemesterStatus = isRegSemesterExists?.status;
 
         if (regSemesterStatus !== RegistrationStatus.UPCOMING) {
-            throw new Error(`you can not update as the registered semester is ${regSemesterStatus}`);
+            throw new Error(
+                `you can not update as the registered semester is ${regSemesterStatus}`,
+            );
         }
 
         const session = await startSession();
@@ -118,26 +119,29 @@ export class RegSemesterServices {
         try {
             const deletedOfferedCourse = await OfferedCourseModel.deleteMany(
                 {
-                    semesterRegistration : id
+                    semesterRegistration: id,
                 },
                 {
-                    session
-                }
+                    session,
+                },
             );
 
             if (!deletedOfferedCourse) {
                 throw new Error('Failed to delete semester registration');
             }
-            
-            const deletedSemesterRegistration = await RegSemesterModel.findByIdAndUpdate(id, { session, new: true });
-            
+
+            const deletedSemesterRegistration =
+                await RegSemesterModel.findByIdAndUpdate(id, {
+                    session,
+                    new: true,
+                });
+
             if (!deletedSemesterRegistration) {
                 throw new Error('Failed to delete semester registration');
             }
 
             await session.commitTransaction();
             await session.endSession();
-            
         } catch (error) {
             await session.abortTransaction();
             await session.endSession();

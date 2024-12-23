@@ -57,7 +57,7 @@ const allRoutes = [
     {
         path: '/auth',
         route: AuthRouter,
-    }
+    },
 ];
 
 allRoutes.forEach((singleRoute) =>

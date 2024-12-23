@@ -63,10 +63,10 @@ userSchema.statics.isUserExistsByCustomId = async function (id: string) {
 };
 
 userSchema.statics.isPasswordMatched = async function (
-  plainTextPassword,
-  hashedPassword,
+    plainTextPassword,
+    hashedPassword,
 ) {
-  return await bcrypt.compare(plainTextPassword, hashedPassword);
+    return await bcrypt.compare(plainTextPassword, hashedPassword);
 };
 
 userSchema.statics.isJWTIssuedBeforePasswordChanged = function (
@@ -78,4 +78,4 @@ userSchema.statics.isJWTIssuedBeforePasswordChanged = function (
     return passwordChangedTime > jwtIssuedTimestamp;
 };
 
-export const UserModel = model<TUser,UserStatics>('User', userSchema);
+export const UserModel = model<TUser, UserStatics>('User', userSchema);

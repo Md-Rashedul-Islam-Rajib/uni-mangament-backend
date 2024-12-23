@@ -13,22 +13,17 @@ export const createToken = (
 
 export const verifyToken = (secret: string, token?: string) => {
     if (!token) {
-        throw new Error(
-            "You're not authorized"
-        );
+        throw new Error("You're not authorized");
     }
 
     try {
         return jwt.verify(token, secret) as JwtPayload;
     } catch (_error) {
-        throw new Error(
-            'The provided token is invalid or expired'
-        );
+        throw new Error('The provided token is invalid or expired');
     }
 };
 
-
-export const preValidatingUser = async (userId:string, iat?: number) => {
+export const preValidatingUser = async (userId: string, iat?: number) => {
     const user = await UserModel.isUserExistsByCustomId(userId);
     if (!user) {
         throw new Error('this user is not found');
@@ -39,12 +34,17 @@ export const preValidatingUser = async (userId:string, iat?: number) => {
     }
 
     if (user.status === 'blocked') {
-        throw new Error('this user is blocked'); 
+        throw new Error('this user is blocked');
     }
 
-    if (user.passwordChangedAt && UserModel.isJWTIssuedBeforePasswordChanged(user.passwordChangedAt, iat as number)) {
+    if (
+        user.passwordChangedAt &&
+        UserModel.isJWTIssuedBeforePasswordChanged(
+            user.passwordChangedAt,
+            iat as number,
+        )
+    ) {
         throw new Error('you are not authorized');
     }
     return user;
-
 };

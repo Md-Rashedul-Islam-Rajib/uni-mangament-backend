@@ -140,9 +140,7 @@ export class OfferedCourseServices {
         const isOfferedCourseExists = await OfferedCourseModel.findById(id);
 
         if (!isOfferedCourseExists) {
-            throw new Error(
-                'Offered course not found !',
-            );
+            throw new Error('Offered course not found !');
         }
 
         const isFacultyExists = await FacultyMemberModel.findById(faculty);
@@ -187,15 +185,13 @@ export class OfferedCourseServices {
             new: true,
         });
         return result;
-    };
+    }
 
     static async deleteOfferedCourse(id: string) {
         const isOfferedCourseExists = await OfferedCourseModel.findById(id);
 
         if (!isOfferedCourseExists) {
-            throw new Error(
-                'Offered Course not found',
-            );
+            throw new Error('Offered Course not found');
         }
 
         const semesterRegistation = isOfferedCourseExists.semesterRegistration;
@@ -214,8 +210,5 @@ export class OfferedCourseServices {
         const result = await OfferedCourseModel.findByIdAndDelete(id);
 
         return result;
-    };
-
-
-
+    }
 }

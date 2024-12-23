@@ -1,10 +1,9 @@
-import config from "../../config";
-import catchAsync from "../../utilities/catchAsyncFn";
-import sendResponse from "../../utilities/sendResponse";
-import { AuthServices } from "./auth.service";
+import config from '../../config';
+import catchAsync from '../../utilities/catchAsyncFn';
+import sendResponse from '../../utilities/sendResponse';
+import { AuthServices } from './auth.service';
 
 export class AuthControllers {
-
     static loginUser = catchAsync(async (req, res) => {
         const result = await AuthServices.loginUser(req.body);
         const { refreshToken, accessToken, needsPasswordChange } = result;
@@ -13,30 +12,30 @@ export class AuthControllers {
             secure: config.NODE_ENV === 'production',
             httpOnly: true,
         });
-        const data = {accessToken,needsPasswordChange};
+        const data = { accessToken, needsPasswordChange };
 
-        sendResponse(res,200,true, 'user logged in successfully',data);
+        sendResponse(res, 200, true, 'user logged in successfully', data);
     });
 
-
     static changePassword = catchAsync(async (req, res) => {
-       const { ...passwordData } = req.body;
+        const { ...passwordData } = req.body;
 
-        const result = await AuthServices.changePassword(req.user, passwordData);
-        sendResponse(res,200,true,"password changed successfully",result); 
+        const result = await AuthServices.changePassword(
+            req.user,
+            passwordData,
+        );
+        sendResponse(res, 200, true, 'password changed successfully', result);
     });
 
     static refreshToken = catchAsync(async (req, res) => {
         const { refreshToken } = req.cookies;
         const result = await AuthServices.refreshToken(refreshToken);
-        sendResponse(res,200,true,"access token is renewed successfully",result);
+        sendResponse(
+            res,
+            200,
+            true,
+            'access token is renewed successfully',
+            result,
+        );
     });
-
-
-
-
-
-
-
-
 }

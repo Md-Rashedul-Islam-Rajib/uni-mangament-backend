@@ -1,8 +1,6 @@
 import type { NextFunction, Request, Response } from 'express';
 import type { ZodEffects, ZodObject, ZodTypeAny } from 'zod';
 
-
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ZodSchema = ZodObject<any, any, any> | ZodEffects<ZodTypeAny>;
 /**

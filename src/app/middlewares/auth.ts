@@ -1,6 +1,6 @@
-import jwt,{ JwtPayload } from 'jsonwebtoken';
-import { TUserRole } from "../modules/user/user.types";
-import catchAsync from "../utilities/catchAsyncFn";
+import jwt, { JwtPayload } from 'jsonwebtoken';
+import { TUserRole } from '../modules/user/user.types';
+import catchAsync from '../utilities/catchAsyncFn';
 import config from '../config';
 import { preValidatingUser } from '../modules/auth/auth.utilities';
 
@@ -10,9 +10,7 @@ const auth = (...roles: TUserRole[]) => {
 
         // checking if the token is missing
         if (!token) {
-            throw new Error(
-                'You are not authorized!'
-            );
+            throw new Error('You are not authorized!');
         }
 
         // checking if the given token is valid
@@ -24,7 +22,7 @@ const auth = (...roles: TUserRole[]) => {
         const { role, userId, iat } = decoded;
 
         const user = await preValidatingUser(userId, iat);
-        
+
         if (roles && !roles.includes(role)) {
             throw new Error('you are not authorized');
         }
