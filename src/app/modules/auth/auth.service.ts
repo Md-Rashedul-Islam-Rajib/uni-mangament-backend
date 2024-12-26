@@ -1,5 +1,4 @@
-import { resetPasswordValidationSchema } from './auth.zodSchema';
-import { JwtPayload, jwt } from 'jsonwebtoken';
+import jwt,{ JwtPayload }  from 'jsonwebtoken';
 import { UserModel } from '../user/user.model';
 import { TLoginUser } from './auth.types';
 import { createToken, preValidatingUser, verifyToken } from './auth.utilities';

@@ -38,4 +38,9 @@ export class AuthControllers {
             result,
         );
     });
+
+    static forgetPassword = catchAsync(async (req, res) => {
+        await AuthServices.forgetPassword(req.body.id);
+        sendResponse(res, 200, true, 'reset password link sent to your email');
+    });
 }
