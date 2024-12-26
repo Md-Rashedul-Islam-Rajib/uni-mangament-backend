@@ -40,7 +40,13 @@ export class AuthControllers {
     });
 
     static forgetPassword = catchAsync(async (req, res) => {
-        await AuthServices.forgetPassword(req.body.id);
-        sendResponse(res, 200, true, 'reset password link sent to your email');
+        const result =await AuthServices.forgetPassword(req.body.id);
+        sendResponse(res, 200, true, 'reset password link sent to your email',result);
+    });
+
+    static resetPassword = catchAsync(async (req, res) => {
+        const token = req.headers.authorization;
+        const result = await AuthServices.resetPassword(req.body, token as string);
+        sendResponse(res, 200, true, 'password reset successfully', result);
     });
 }
