@@ -1,6 +1,7 @@
 import { z } from 'zod';
+import { UserStatus } from './user.constants';
 
-const userZodSchema = z.object({
+export const userZodSchema = z.object({
     password: z
         .string({
             invalid_type_error: 'Password must be string',
@@ -8,4 +9,10 @@ const userZodSchema = z.object({
         .max(20, { message: 'Password can not be more than 20 characters' })
         .optional(),
 });
-export default userZodSchema;
+
+
+export const changeStatusValidationSchema = z.object({
+        status: z.enum([...UserStatus] as [string, ...string[]]),
+    
+});
+
