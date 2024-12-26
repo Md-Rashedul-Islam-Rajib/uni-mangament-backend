@@ -49,6 +49,7 @@ export const createStudentValidationSchema = z.object({
 export const updateUserNameSchema = userNameValidationSchema.partial().strict();
 export const updateGuardianSchema = guardianValidationSchema.partial().strict();
 export const updateLocalGuardianSchema = localGuardianValidationSchema.partial().strict();
+export const updateStudentSchema = createStudentValidationSchema.partial().strict();
 
 export const studentValidations = {
     createStudentValidationSchema,
