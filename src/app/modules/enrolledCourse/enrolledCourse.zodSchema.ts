@@ -1,12 +1,12 @@
 import { z } from 'zod';
 
-const createEnrolledCourseValidationZodSchema = z.object({
+export const createEnrolledCourseValidationZodSchema = z.object({
 
         offeredCourse: z.string(),
 
 });
 
-const updateEnrolledCourseMarksValidationZodSchema = z.object({
+export const updateEnrolledCourseMarksValidationZodSchema = z.object({
 
         semesterRegistration: z.string(),
         offeredCourse: z.string(),

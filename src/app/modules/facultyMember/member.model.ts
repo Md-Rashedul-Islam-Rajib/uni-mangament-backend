@@ -131,6 +131,6 @@ facultySchema.statics.isUserExists = async function (id: string) {
 };
 
 export const FacultyMemberModel = model<TFacultyMember, Faculty>(
-    'Faculty',
+    'FacultyMember',
     facultySchema,
 );
