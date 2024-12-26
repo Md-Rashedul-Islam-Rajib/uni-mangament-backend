@@ -4,6 +4,7 @@ import { TLoginUser } from './auth.types';
 import { createToken, preValidatingUser, verifyToken } from './auth.utilities';
 import config from '../../config';
 import bcrypt from 'bcrypt';
+import { sendEmail } from '../../utilities/sendEmail';
 
 export class AuthServices {
     static async loginUser(payload: TLoginUser) {
@@ -113,5 +114,6 @@ export class AuthServices {
         );
 
         const resetUILink = `${config.reset_pass_ui_link}?id=${user.id}&token=${resetToken} `;
+        sendEmail(user.email, resetUILink);
     }
 }
