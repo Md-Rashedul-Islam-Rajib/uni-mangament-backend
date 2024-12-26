@@ -1,3 +1,4 @@
+import { resetPasswordValidationSchema } from './auth.zodSchema';
 import { JwtPayload, jwt } from 'jsonwebtoken';
 import { UserModel } from '../user/user.model';
 import { TLoginUser } from './auth.types';
@@ -114,6 +115,37 @@ export class AuthServices {
         );
 
         const resetUILink = `${config.reset_pass_ui_link}?id=${user.id}&token=${resetToken} `;
+
         sendEmail(user.email, resetUILink);
+    }
+
+    static async resetPassword(payload:{id: string, newPassword: string},token:string) {
+        const user = await preValidatingUser(payload.id);
+
+        const decoded = jwt.verify(
+            token,
+            config.jwt_access_secret,
+        ) as JwtPayload;
+
+        if (decoded.userId !== user.id) {
+            throw new Error('you are not authorized');
+        }
+
+        const newHashedPassword = await bcrypt.hash(
+            payload.newPassword,
+            Number(config.bcrypt_salt_rounds),
+        );
+
+        await UserModel.findOneAndUpdate(
+            {
+                id: decoded.userId,
+                role: decoded.role,
+            },
+            {
+                password: newHashedPassword,
+                needsPasswordChange: false,
+                passwordChangedAt: new Date(),
+            },
+        );
     }
 }
