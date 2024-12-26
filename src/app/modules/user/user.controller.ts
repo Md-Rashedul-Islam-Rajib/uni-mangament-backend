@@ -29,4 +29,9 @@ export class UserControllers {
         const result = await UserServices.createAdmin(password, admin);
         sendResponse(res, 201, true, 'Admin is created successfully', result);
     });
+
+    static getMe = catchAsync(async (req, res) => {
+        const result = await UserServices.getMe(req.user.id,req.user.role);
+        sendResponse(res, 200, true, 'User is retrieved successfully', result);
+    });
 }

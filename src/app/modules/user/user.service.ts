@@ -13,7 +13,6 @@ import {
 import { DepartmentModel } from '../department/dept.model';
 import mongoose, { startSession } from 'mongoose';
 import { TFacultyMember } from '../facultyMember/member.types';
-import { FacultyMemberModel } from '../facultyMember/member.model';
 import { TAdmin } from '../admin/admin.types';
 import { AdminModel } from '../admin/admin.model';
 
@@ -194,7 +193,11 @@ export class UserServices {
     }
     
     static async changeStatus(id: string, payload: { status: string }) {
-        const result = await UserModel.findOneAndUpdate(id, payload, { new: true });
+        const result = await UserModel.findOneAndUpdate(
+            { id },
+            { $set: payload }, // Update: apply changes
+            { new: true },
+        );
     
         return result;
     }
