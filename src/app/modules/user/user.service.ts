@@ -1,3 +1,4 @@
+import { FacultyMemberModel } from './../facultyMember/member.model';
 import config from '../../config';
 import { SemesterModel } from '../semester/semester.model';
 import { StudentModel } from '../student/student.model';
@@ -175,4 +176,20 @@ export class UserServices {
             throw error;
         }
     }
+
+    static async getMe(userId: string, role: string) {
+        let result = null;
+        if (role === 'student') {
+            result = await StudentModel.findOne({ id: userId }).populate('user');
+        }
+        if (role === 'admin') {
+            result = await AdminModel.findOne({ id: userId }).populate('user');
+        }
+
+        if (role === 'faculty') {
+            result = await FacultyMemberModel.findOne({ id: userId }).populate('user');
+        }
+
+        return result;
+     }
 }
