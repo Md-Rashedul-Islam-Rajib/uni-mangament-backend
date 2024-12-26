@@ -3,6 +3,7 @@ import { StudentModel } from './student.model';
 import { UserModel } from '../user/user.model';
 import QueryBuilder from '../../builder/queryBuilder';
 import { studentSearchableFields } from './student.constants';
+import { TStudent } from './student.types';
 
 export class StudentServices {
     static async getAllStudentsFromDB(query: Record<string, unknown>) {
@@ -23,7 +24,7 @@ export class StudentServices {
             .paginate()
             .fields();
 
-        const result = await studentQuery.getQuery;
+        const result = studentQuery.getQuery;
         return result;
     }
 
@@ -37,6 +38,42 @@ export class StudentServices {
                 },
             });
         return result;
+    }
+
+    static async updateStudent(id: string, payload: Partial<TStudent>) {
+         const { name, guardian, localGuardian, ...remainingStudentData } =
+             payload;
+
+         const modifiedUpdatedData: Record<string, unknown> = {
+             ...remainingStudentData,
+         };
+         if (name && Object.keys(name).length) {
+             for (const [key, value] of Object.entries(name)) {
+                 modifiedUpdatedData[`name.${key}`] = value;
+             }
+         }
+
+         if (guardian && Object.keys(guardian).length) {
+             for (const [key, value] of Object.entries(guardian)) {
+                 modifiedUpdatedData[`guardian.${key}`] = value;
+             }
+         }
+
+         if (localGuardian && Object.keys(localGuardian).length) {
+             for (const [key, value] of Object.entries(localGuardian)) {
+                 modifiedUpdatedData[`localGuardian.${key}`] = value;
+             }
+         }
+
+         const result = await StudentModel.findByIdAndUpdate(
+             id,
+             modifiedUpdatedData,
+             {
+                 new: true,
+                 runValidators: true,
+             },
+         );
+         return result;
     }
 
     static async deleteStudentFromDB(id: string) {
