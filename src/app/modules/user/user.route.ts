@@ -37,6 +37,8 @@ UserRouter.post(
     UserControllers.createAdmin,
 );
 
-UserRouter.post('/change-status/:id', auth(USER_ROLE.admin),validateRequest(changeStatusValidationSchema), UserControllers.changeStatus);
+UserRouter.post('/change-status/:id', auth(USER_ROLE.admin), validateRequest(changeStatusValidationSchema), UserControllers.changeStatus);
+
+UserRouter.get('/me', auth(USER_ROLE.admin,USER_ROLE.faculty,USER_ROLE.student), UserControllers.getMe);
 
 export default UserRouter;
