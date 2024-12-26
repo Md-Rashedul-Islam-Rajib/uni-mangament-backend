@@ -32,6 +32,11 @@ export class StudentControllers {
         );
     });
 
+    static updateStudent = catchAsync(async (req: Request, res: Response) => { 
+        const result = await StudentServices.updateStudent(req.params.id, req.body);
+        sendResponse(res, 200, true, 'Student is updated successfully', result);
+    });
+
     static deleteStudent = catchAsync(async (req: Request, res: Response) => {
         const { studentId } = req.params;
         const result = await StudentServices.deleteStudentFromDB(studentId);
