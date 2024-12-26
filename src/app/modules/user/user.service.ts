@@ -191,5 +191,11 @@ export class UserServices {
         }
 
         return result;
-     }
+    }
+    
+    static async changeStatus(id: string, payload: { status: string }) {
+        const result = await UserModel.findOneAndUpdate(id, payload, { new: true });
+    
+        return result;
+    }
 }
