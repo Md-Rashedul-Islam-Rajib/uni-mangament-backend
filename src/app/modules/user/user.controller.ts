@@ -34,4 +34,9 @@ export class UserControllers {
         const result = await UserServices.getMe(req.user.id,req.user.role);
         sendResponse(res, 200, true, 'User is retrieved successfully', result);
     });
+
+    static changeStatus = catchAsync(async (req, res) => { 
+        const result = await UserServices.changeStatus(req.params.id, req.body);
+        sendResponse(res, 200, true, 'User status is changed successfully', result);
+    });
 }
