@@ -1,4 +1,4 @@
-import { JwtPayload } from 'jsonwebtoken';
+import { JwtPayload, jwt } from 'jsonwebtoken';
 import { UserModel } from '../user/user.model';
 import { TLoginUser } from './auth.types';
 import { createToken, preValidatingUser, verifyToken } from './auth.utilities';
@@ -95,5 +95,23 @@ export class AuthServices {
         );
 
         return { accessToken };
+    }
+
+
+    static async forgetPassword(id: string) {
+        const user = await preValidatingUser(id);
+
+        const jwtPayload = {
+            userId: user.id,
+            role: user.role,
+        };
+
+        const resetToken = createToken(
+            jwtPayload,
+            config.jwt_access_secret,
+            '10m',
+        );
+
+        const resetUILink = `${config.reset_pass_ui_link}?id=${user.id}&token=${resetToken} `;
     }
 }
